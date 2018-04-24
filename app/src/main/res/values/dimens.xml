@@ -4,4 +4,6 @@
     <dimen name="fontSize">15.0sp</dimen>
     <dimen name="include_width">60.0dip</dimen>
     <dimen name="pad">15.0dip</dimen>
+    <dimen name="m_left">20.0dip</dimen>
+    <dimen name="mix_size">1.0dip</dimen>
 </resources>

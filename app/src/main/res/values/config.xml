@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        1默认显示该测试项
+        0不显示该测试项
+    -->
+
+    <!--function default config -->
+    <integer name="function_default_config_pcba">1</integer>
+    <integer name="function_default_config_run_in">1</integer>
+
+    <!--pcba default config-->
+    <integer name="pcba_default_config_memory">1</integer>
+    <integer name="pcba_default_config_battery_charge">1</integer>
+    <integer name="pcba_default_config_audio_earphone">1</integer>
+    <integer name="pcba_default_config_audio_speaker">1</integer>
+    <integer name="pcba_default_config_audio_receive">1</integer>
+    <integer name="pcba_default_config_audio_record">1</integer>
+    <integer name="pcba_default_config_wifi">0</integer>
+    <integer name="pcba_default_config_gps">1</integer>
+    <integer name="pcba_default_config_vibrator">1</integer>
+    <integer name="pcba_default_config_power">1</integer>
+
+    <!--run-in default config -->
+    <integer name="run_in_default_config_cpu">1</integer>
+    <integer name="run_in_default_config_memory">1</integer>
+    <integer name="run_in_default_config_battery">1</integer>
+    <integer name="run_in_default_config_lcd_rgb">1</integer>
+    <integer name="run_in_default_config_lcd_brightness">1</integer>
+    <integer name="run_in_default_config_audio">1</integer>
+    <integer name="run_in_default_config_led">1</integer>
+    <integer name="run_in_default_config_nfc">1</integer>
+    <integer name="run_in_default_config_rear_camera">1</integer>
+    <integer name="run_in_default_config_g_sensor">1</integer>
+    <integer name="run_in_default_config_e_sensor">1</integer>
+    <integer name="run_in_default_config_l_sensor">1</integer>
+    <integer name="run_in_default_config_gyro_meter">1</integer>
+    <integer name="run_in_default_config_vibrator">1</integer>
+</resources>

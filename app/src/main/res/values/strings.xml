@@ -2,4 +2,38 @@
     <string name="app_name">MeigRS32</string>
 
     <string name="main_title">Function Test</string>
+
+    <!--function -->
+    <string name="function_pcba">PCBA(SMT Function Test)</string>
+    <string name="function_run_in">Run-in</string>
+
+    <!--PCBA-->
+    <string name="pcba_memory">Memory Test</string>
+    <string name="pcba_battery_charge">Battery charge Test</string>
+    <string name="pcba_audio">Audio function Test</string>
+    <string name="pcba_audio_earphone">EarPhone Test</string>
+    <string name="pcba_audio_speaker">Speaker Test</string>
+    <string name="pcba_audio_receive">Receiver/Mic Test</string>
+    <string name="pcba_audio_record">Record Test</string>
+    <string name="pcba_wifi">Wifi Test</string>
+    <string name="pcba_gps">GPS Test</string>
+    <string name="pcba_vibrator">Vibrator Test</string>
+    <string name="pcba_power">Power Test</string>
+
+    <!--run-in-->
+    <string name="run_in_cpu">CPU Test</string>
+    <string name="run_in_memory">Memory Test</string>
+    <string name="run_in_battery">Battery Test</string>
+    <string name="run_in_lcd_rgb">LCD R/G/B Test</string>
+    <string name="run_in_lcd_brightness">LCD Brightness Test</string>
+    <string name="run_in_audio">Audio Test</string>
+    <string name="run_in_led">LED Test</string>
+    <string name="run_in_nfc">NFC Test</string>
+    <string name="run_in_rear_camera">Rear Camera Auto Test</string>
+    <string name="run_in_g_sensor">G-Sensor Test</string>
+    <string name="run_in_e_sensor">E-Sensor Test</string>
+    <string name="run_in_l_sensor">L-Sensor Test</string>
+    <string name="run_in_gyro_meter">Gyro-Meter Test</string>
+    <string name="run_in_vibrator">Vibrator Test</string>
+
 </resources>

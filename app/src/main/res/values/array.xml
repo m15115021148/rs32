@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--function list-->
+    <string-array name="function_list">
+        <item>@string/function_pcba</item>
+        <item>@string/function_run_in</item>
+    </string-array>
+
+    <integer-array name="function_list_config">
+        <item>@integer/function_default_config_pcba</item>
+        <item>@integer/function_default_config_run_in</item>
+    </integer-array>
+
+    <!--pcba list-->
+    <string-array name="pcba_list">
+        <item>@string/pcba_memory</item>
+        <item>@string/pcba_battery_charge</item>
+        <item>@string/pcba_audio_earphone</item>
+        <item>@string/pcba_audio_speaker</item>
+        <item>@string/pcba_audio_receive</item>
+        <item>@string/pcba_audio_record</item>
+        <item>@string/pcba_wifi</item>
+        <item>@string/pcba_gps</item>
+        <item>@string/pcba_vibrator</item>
+        <item>@string/pcba_power</item>
+    </string-array>
+
+    <!--run in list-->
+    <string-array name="run_in_list">
+        <item>@string/run_in_cpu</item>
+        <item>@string/run_in_memory</item>
+        <item>@string/run_in_battery</item>
+        <item>@string/run_in_lcd_rgb</item>
+        <item>@string/run_in_lcd_brightness</item>
+        <item>@string/run_in_audio</item>
+        <item>@string/run_in_led</item>
+        <item>@string/run_in_nfc</item>
+        <item>@string/run_in_rear_camera</item>
+        <item>@string/run_in_g_sensor</item>
+        <item>@string/run_in_e_sensor</item>
+        <item>@string/run_in_l_sensor</item>
+        <item>@string/run_in_gyro_meter</item>
+        <item>@string/run_in_vibrator</item>
+    </string-array>
+
+    <integer-array name="test">
+
+    </integer-array>
+
+</resources>
