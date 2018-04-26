@@ -2,10 +2,16 @@
     <string name="app_name">MeigRS32</string>
 
     <string name="main_title">Function Test</string>
+    <string name="to_be_developed">To be developed</string>
 
     <!--function -->
     <string name="function_pcba">PCBA(SMT Function Test)</string>
     <string name="function_run_in">Run-in</string>
+    <string name="function_pre_function">Pre_Function Test</string>
+    <string name="function_fat">FAT(Finished Assembly Test)</string>
+    <string name="function_information_check">Information Check</string>
+    <string name="function_wireless">Wireless Test</string>
+    <string name="function_other">Other Test</string>
 
     <!--PCBA-->
     <string name="pcba_memory">Memory Test</string>

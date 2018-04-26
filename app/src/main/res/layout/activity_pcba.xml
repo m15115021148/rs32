@@ -6,7 +6,7 @@
     android:background="@color/pop_txt_bg"
     android:orientation="vertical"
     android:overScrollMode="never"
-    tools:context=".activity.PCBAActivity">
+    tools:context=".activity.CheckFunctionActivity">
 
     <include
         layout="@layout/include_title"

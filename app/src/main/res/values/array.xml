@@ -4,11 +4,20 @@
     <string-array name="function_list">
         <item>@string/function_pcba</item>
         <item>@string/function_run_in</item>
+        <item>@string/function_pre_function</item>
+        <item>@string/function_fat</item>
+        <item>@string/function_information_check</item>
+        <item>@string/function_wireless</item>
+        <item>@string/function_other</item>
     </string-array>
-
     <integer-array name="function_list_config">
         <item>@integer/function_default_config_pcba</item>
         <item>@integer/function_default_config_run_in</item>
+        <item>@integer/function_default_config_pre_function</item>
+        <item>@integer/function_default_config_fat</item>
+        <item>@integer/function_default_config_information_check</item>
+        <item>@integer/function_default_config_wireless</item>
+        <item>@integer/function_default_config_other</item>
     </integer-array>
 
     <!--pcba list-->
@@ -24,6 +33,18 @@
         <item>@string/pcba_vibrator</item>
         <item>@string/pcba_power</item>
     </string-array>
+    <integer-array name="pcba_list_config">
+        <item>@integer/pcba_default_config_memory</item>
+        <item>@integer/pcba_default_config_battery_charge</item>
+        <item>@integer/pcba_default_config_audio_earphone</item>
+        <item>@integer/pcba_default_config_audio_speaker</item>
+        <item>@integer/pcba_default_config_audio_receive</item>
+        <item>@integer/pcba_default_config_audio_record</item>
+        <item>@integer/pcba_default_config_wifi</item>
+        <item>@integer/pcba_default_config_gps</item>
+        <item>@integer/pcba_default_config_vibrator</item>
+        <item>@integer/pcba_default_config_power</item>
+    </integer-array>
 
     <!--run in list-->
     <string-array name="run_in_list">
@@ -42,9 +63,22 @@
         <item>@string/run_in_gyro_meter</item>
         <item>@string/run_in_vibrator</item>
     </string-array>
-
-    <integer-array name="test">
-
+    <integer-array name="run_in_list_config">
+        <item>@integer/run_in_default_config_cpu</item>
+        <item>@integer/run_in_default_config_memory</item>
+        <item>@integer/run_in_default_config_battery</item>
+        <item>@integer/run_in_default_config_lcd_rgb</item>
+        <item>@integer/run_in_default_config_lcd_brightness</item>
+        <item>@integer/run_in_default_config_audio</item>
+        <item>@integer/run_in_default_config_led</item>
+        <item>@integer/run_in_default_config_nfc</item>
+        <item>@integer/run_in_default_config_rear_camera</item>
+        <item>@integer/run_in_default_config_g_sensor</item>
+        <item>@integer/run_in_default_config_e_sensor</item>
+        <item>@integer/run_in_default_config_l_sensor</item>
+        <item>@integer/run_in_default_config_gyro_meter</item>
+        <item>@integer/run_in_default_config_vibrator</item>
     </integer-array>
+
 
 </resources>

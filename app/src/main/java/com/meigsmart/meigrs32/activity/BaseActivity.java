@@ -11,7 +11,12 @@ import android.view.KeyEvent;
 import android.view.Window;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.model.TypeModel;
 import com.meigsmart.meigrs32.util.SystemManagerUtil;
+import com.meigsmart.meigrs32.util.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -51,6 +56,32 @@ public abstract class BaseActivity extends AppCompatActivity {
                 butterKnife.unbind();
                 finish();
             }
+        }
+    }
+
+    protected List<TypeModel> getData(String[] array, int[] ids, Class[] cls){
+        List<TypeModel> list = new ArrayList<>();
+        for (int i=0;i<array.length;i++){
+            if (ids[i] == 1){
+                TypeModel model = new TypeModel();
+                model.setId(i);
+                model.setName(array[i]);
+                model.setCls(cls[i]);
+                model.setType(0);
+                list.add(model);
+            }
+        }
+        return list;
+    }
+
+    protected void startActivity(TypeModel model){
+        if (model.getCls().equals(Class.class)){
+            ToastUtil.showBottomShort(getResources().getString(R.string.to_be_developed));
+            return;
+        }
+        if (model.getCls() != null){
+            Intent intent = new Intent(this,model.getCls());
+            startActivity(intent);
         }
     }
 

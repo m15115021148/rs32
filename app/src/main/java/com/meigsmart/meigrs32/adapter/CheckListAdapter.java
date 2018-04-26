@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,35 +19,34 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by chenMeng on 2018/4/24.
+ * Created by chenMeng on 2018/4/26.
  */
-public class FunctionListAdapter extends RecyclerView.Adapter<FunctionListAdapter.Holder>{
+public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.Holder> {
     private List<TypeModel> mList = new ArrayList<>();
-    private OnFunctionItemClick mCallBack;
+    private OnCallBackCheckFunction mCallBack;
 
-    public FunctionListAdapter( OnFunctionItemClick callBack){
+    public CheckListAdapter(OnCallBackCheckFunction callBack) {
         this.mCallBack = callBack;
     }
 
-    public interface OnFunctionItemClick{
-        void onClickItem(int position);
+    public interface OnCallBackCheckFunction {
+        void onItemClick(int position);
     }
 
-    public void setData(List<TypeModel> list){
+    public void setData(List<TypeModel> list) {
         this.mList = list;
         this.notifyDataSetChanged();
     }
 
-    public List<TypeModel> getData(){
+    public List<TypeModel> getData() {
         return this.mList;
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.function_list_item,null);
-        Holder holder = new Holder(view);
-        return holder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pcba_list_item, null);
+        return new Holder(view);
     }
 
     @Override
@@ -59,26 +59,40 @@ public class FunctionListAdapter extends RecyclerView.Adapter<FunctionListAdapte
         return mList.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder{
+    class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.layout)
         public RelativeLayout mLayout;
         @BindView(R.id.name)
         public TextView mName;
+        @BindView(R.id.img)
+        public CheckBox mImg;
 
         public Holder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        public void initData(final int position){
+        public void initData(final int position) {
             TypeModel model = mList.get(position);
+
             mName.setText(model.getName());
+
+            if (model.getType() == 1) {
+                mImg.setSelected(true);
+            } else if (model.getType() == 2) {
+                mImg.setChecked(true);
+            } else {
+                mImg.setSelected(false);
+                mImg.setChecked(false);
+            }
+
             mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mCallBack!=null)mCallBack.onClickItem(position);
+                    if (mCallBack!=null)mCallBack.onItemClick(position);
                 }
             });
+
         }
     }
 }

@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PCBAActivity" />
+        <activity android:name=".activity.CheckFunctionActivity" />
         <activity android:name=".activity.RunInActivity" />
         <activity android:name=".activity.CpuActivity"></activity>
     </application>

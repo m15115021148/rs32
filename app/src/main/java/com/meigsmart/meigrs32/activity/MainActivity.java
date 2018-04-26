@@ -8,16 +8,8 @@ import android.widget.TextView;
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.adapter.FunctionListAdapter;
 import com.meigsmart.meigrs32.config.Const;
-import com.meigsmart.meigrs32.model.ClassModel;
-import com.meigsmart.meigrs32.model.TypeModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindArray;
-import butterknife.BindInt;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements FunctionListAdapter.OnFunctionItemClick{
@@ -31,8 +23,6 @@ public class MainActivity extends BaseActivity implements FunctionListAdapter.On
     @BindArray(R.array.function_list_config)
     public int[] mFunctionListConfig;
     private FunctionListAdapter mAdapter;
-    private List<TypeModel> mList;
-    private List<ClassModel> mClassList;
 
     @Override
     protected int getLayoutId() {
@@ -48,40 +38,21 @@ public class MainActivity extends BaseActivity implements FunctionListAdapter.On
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new FunctionListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        mList = new ArrayList<>();
-        mClassList = getClassName(mFunctionListConfig, Const.functionList);
-        mAdapter.setData(getData(mFunctionList,mFunctionListConfig));
-    }
-
-    private List<TypeModel> getData(String[] array, int[] ids){
-        List<TypeModel> list = new ArrayList<>();
-        for (int i=0;i<array.length;i++){
-            if (ids[i] == 1){
-                TypeModel model = new TypeModel();
-                model.setId(i);
-                model.setName(array[i]);
-                list.add(model);
-            }
-        }
-        return list;
-    }
-
-    private List<ClassModel> getClassName(int[] ids,Class[] cls){
-        List<ClassModel> list = new ArrayList<>();
-        for (int i=0;i<ids.length;i++){
-            if (ids[i] == 1){
-                ClassModel model = new ClassModel();
-                model.setId(i);
-                model.setCls(cls[i]);
-                list.add(model);
-            }
-        }
-        return list;
+        mAdapter.setData(getData(mFunctionList,mFunctionListConfig,Const.functionList));
     }
 
     @Override
     public void onClickItem(int position) {
-        Intent intent = new Intent(mContext,mClassList.get(position).getCls());
-        startActivity(intent);
+        startActivity(mAdapter.getData().get(position));
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent();
+        intent.setAction(BaseActivity.TAG_ESC_ACTIVITY);
+        sendBroadcast(intent);
+        System.exit(0);
+        finish();
+        super.onDestroy();
     }
 }

@@ -50,5 +50,6 @@
 
     <color name="transparent">#00000000</color>
     <color name="shadow">#cc222222</color>
-    <color name="Red_800">#ffb93221</color>
+    <color name="red_800">#ffb93221</color>
+    <color name="green_1">#AA00FF00</color>
 </resources>

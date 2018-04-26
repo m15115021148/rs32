@@ -13,23 +13,23 @@ import com.meigsmart.meigrs32.config.Const;
 import butterknife.BindArray;
 import butterknife.BindView;
 
-public class RunInActivity extends BaseActivity implements View.OnClickListener ,CheckListAdapter.OnCallBackCheckFunction {
-    private RunInActivity mContext;
+public class CheckFunctionActivity extends BaseActivity implements View.OnClickListener , CheckListAdapter.OnCallBackCheckFunction {
+    private CheckFunctionActivity mContext;
     @BindView(R.id.title)
     public TextView mTitle;
     @BindView(R.id.recycleView)
     public RecyclerView mRecyclerView;
     @BindView(R.id.back)
     public LinearLayout mBack;
-    @BindArray(R.array.run_in_list)
-    public String[] mRunInList;
-    @BindArray(R.array.run_in_list_config)
-    public int[] mRunInListConfig;
     private CheckListAdapter mAdapter;
+    @BindArray(R.array.pcba_list)
+    public String[] mPCBAList;
+    @BindArray(R.array.pcba_list_config)
+    public int[] mPCBAListConfig;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_run_in;
+        return R.layout.activity_pcba;
     }
 
     @Override
@@ -38,12 +38,12 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
         super.startBlockKeys = false;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
-        mTitle.setText(R.string.function_run_in);
+        mTitle.setText(R.string.function_pcba);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CheckListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setData(getData(mRunInList,mRunInListConfig, Const.runInList));
+        mAdapter.setData(getData(mPCBAList,mPCBAListConfig, Const.pcbaList));
     }
 
     @Override

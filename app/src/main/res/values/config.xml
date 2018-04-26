@@ -8,6 +8,11 @@
     <!--function default config -->
     <integer name="function_default_config_pcba">1</integer>
     <integer name="function_default_config_run_in">1</integer>
+    <integer name="function_default_config_pre_function">1</integer>
+    <integer name="function_default_config_fat">1</integer>
+    <integer name="function_default_config_information_check">1</integer>
+    <integer name="function_default_config_wireless">1</integer>
+    <integer name="function_default_config_other">1</integer>
 
     <!--pcba default config-->
     <integer name="pcba_default_config_memory">1</integer>

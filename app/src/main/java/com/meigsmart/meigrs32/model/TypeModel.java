@@ -7,6 +7,7 @@ public class TypeModel {
     private int id;
     private String name;
     private int type;//0 unselected ; 1 pass ; 2 failure
+    private Class cls;
 
     public int getId() {
         return id;
@@ -32,4 +33,11 @@ public class TypeModel {
         this.type = type;
     }
 
+    public Class getCls() {
+        return cls;
+    }
+
+    public void setCls(Class cls) {
+        this.cls = cls;
+    }
 }
