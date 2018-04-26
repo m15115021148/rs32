@@ -13,8 +13,8 @@ import com.meigsmart.meigrs32.config.Const;
 import butterknife.BindArray;
 import butterknife.BindView;
 
-public class CheckFunctionActivity extends BaseActivity implements View.OnClickListener , CheckListAdapter.OnCallBackCheckFunction {
-    private CheckFunctionActivity mContext;
+public class PCBAActivity extends BaseActivity implements View.OnClickListener , CheckListAdapter.OnCallBackCheckFunction {
+    private PCBAActivity mContext;
     @BindView(R.id.title)
     public TextView mTitle;
     @BindView(R.id.recycleView)

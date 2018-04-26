@@ -1,7 +1,7 @@
 package com.meigsmart.meigrs32.config;
 
 import com.meigsmart.meigrs32.activity.CpuActivity;
-import com.meigsmart.meigrs32.activity.CheckFunctionActivity;
+import com.meigsmart.meigrs32.activity.PCBAActivity;
 import com.meigsmart.meigrs32.activity.RunInActivity;
 
 /**
@@ -9,7 +9,7 @@ import com.meigsmart.meigrs32.activity.RunInActivity;
  */
 public class Const {
     public static Class[] functionList = {
-            CheckFunctionActivity.class,
+            PCBAActivity.class,
             RunInActivity.class,
             Class.class,
             Class.class,
