@@ -5,16 +5,19 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.meigsmart.meigrs32.db.FunctionDao;
+
 /**
  * Created by chenMeng on 2018/4/23.
  */
 public class MyApplication extends Application {
     private static MyApplication instance;// application对象
+    public FunctionDao mDb;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mDb = new FunctionDao(getApplicationContext());
     }
 
     public static MyApplication getInstance(){

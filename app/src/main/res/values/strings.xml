@@ -4,6 +4,13 @@
     <string name="main_title">Function Test</string>
     <string name="to_be_developed">To be developed</string>
 
+    <!--prompt dialog -->
+    <string name="prompt_dialog_title">Prompt</string>
+    <string name="prompt_dialog_result">Please choose test result:</string>
+    <string name="prompt_dialog_untest">SET UNTEST</string>
+    <string name="prompt_dialog_fail">FAIL</string>
+    <string name="prompt_dialog_pass">PASS</string>
+
     <!--function -->
     <string name="function_pcba">PCBA(SMT Function Test)</string>
     <string name="function_run_in">Run-in</string>

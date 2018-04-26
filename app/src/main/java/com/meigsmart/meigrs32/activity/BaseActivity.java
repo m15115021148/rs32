@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.application.MyApplication;
+import com.meigsmart.meigrs32.db.FunctionBean;
 import com.meigsmart.meigrs32.model.TypeModel;
 import com.meigsmart.meigrs32.util.SystemManagerUtil;
 import com.meigsmart.meigrs32.util.ToastUtil;
+import com.meigsmart.meigrs32.view.PromptDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     private MyBroaderEsc receiver;//广播
     private Unbinder butterKnife;//取消绑定
     protected boolean startBlockKeys = true;
+    private PowerManager.WakeLock wakeLock = null;
+    protected PromptDialog mDialog;
+    protected String mName = "";
+    protected List<FunctionBean> mList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +44,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {//设置为竖屏
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+        acquireWakeLock();
         // 注册广播
         receiver = new MyBroaderEsc();
         registerReceiver(receiver, new IntentFilter(TAG_ESC_ACTIVITY));
+        mDialog = new PromptDialog(this,R.style.MyDialogStyle);
         // 反射注解机制初始化
         butterKnife = ButterKnife.bind(this);
         initData();
@@ -59,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected List<TypeModel> getData(String[] array, int[] ids, Class[] cls){
+    protected List<TypeModel> getData(String[] array, int[] ids, Class[] cls,List<FunctionBean> f){
         List<TypeModel> list = new ArrayList<>();
         for (int i=0;i<array.length;i++){
             if (ids[i] == 1){
@@ -67,7 +77,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                 model.setId(i);
                 model.setName(array[i]);
                 model.setCls(cls[i]);
-                model.setType(0);
+                if ( f!=null && f.size()>0){
+                    for (FunctionBean bean : f){
+                        if (bean.getSubclassName().equals(array[i])){
+                            model.setType(bean.getResults());
+                        }else{
+                            model.setType(0);
+                        }
+                    }
+                }else{
+                    model.setType(0);
+                }
                 list.add(model);
             }
         }
@@ -81,7 +101,51 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         if (model.getCls() != null){
             Intent intent = new Intent(this,model.getCls());
-            startActivity(intent);
+            intent.putExtra("fatherName",this.mName);
+            intent.putExtra("name",model.getName());
+            startActivityForResult(intent,1111);
+        }
+    }
+
+    protected void addData(String fatherName,String subName){
+        FunctionBean bean = new FunctionBean();
+        bean.setFatherName(fatherName);
+        bean.setSubclassName(subName);
+        bean.setResults(0);
+
+        MyApplication.getInstance().mDb.addData(bean);
+    }
+
+    protected void updateData(String fatherName, String subName, int result){
+        MyApplication.getInstance().mDb.update(fatherName,subName,result);
+    }
+
+    protected FunctionBean getSubData(String fatherName, String subName){
+        return MyApplication.getInstance().mDb.getSubData(fatherName, subName);
+    }
+
+    protected List<FunctionBean> getFatherData(String fatherName){
+        return MyApplication.getInstance().mDb.getFatherData(fatherName);
+    }
+
+    protected List<FunctionBean> getAllData(){
+        return MyApplication.getInstance().mDb.getAllData();
+    }
+
+    private void acquireWakeLock() {
+        if (null == wakeLock) {
+            PowerManager pm = (PowerManager) getSystemService(this.POWER_SERVICE);
+            wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, this.getClass() .getCanonicalName());
+            if (null != wakeLock) {
+                wakeLock.acquire();
+            }
+        }
+    }
+
+    private void releaseWakeLock() {
+        if (null != wakeLock && wakeLock.isHeld()) {
+            wakeLock.release();
+            wakeLock = null;
         }
     }
 
@@ -103,6 +167,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        releaseWakeLock();
     }
 
     @Override

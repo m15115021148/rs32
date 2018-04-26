@@ -2,6 +2,7 @@ package com.meigsmart.meigrs32.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +44,14 @@ public class PCBAActivity extends BaseActivity implements View.OnClickListener ,
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CheckListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setData(getData(mPCBAList,mPCBAListConfig, Const.pcbaList));
+
+        super.mName = getIntent().getStringExtra("name");
+
+        if (!TextUtils.isEmpty(super.mName)){
+            super.mList = getFatherData(super.mName);
+        }
+
+        mAdapter.setData(getData(mPCBAList,mPCBAListConfig, Const.pcbaList,super.mList));
     }
 
     @Override
