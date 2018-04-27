@@ -1,6 +1,7 @@
 package com.meigsmart.meigrs32.config;
 
 import com.meigsmart.meigrs32.activity.CpuActivity;
+import com.meigsmart.meigrs32.activity.MemoryActivity;
 import com.meigsmart.meigrs32.activity.PCBAActivity;
 import com.meigsmart.meigrs32.activity.RunInActivity;
 
@@ -19,7 +20,7 @@ public class Const {
     };
 
     public static Class[] pcbaList = {
-            Class.class,
+            MemoryActivity.class,
             Class.class,
             Class.class,
             Class.class,
@@ -34,7 +35,7 @@ public class Const {
 
     public static Class[] runInList = {
             CpuActivity.class,
-            Class.class,
+            MemoryActivity.class,
             Class.class,
             Class.class,
             Class.class,

@@ -40,4 +40,9 @@ public class FunctionBean {
     public void setResults(int results) {
         this.results = results;
     }
+
+    @Override
+    public String toString() {
+        return "{\nid:"+getId()+"\nfatherName:"+getFatherName()+"\nsubName:"+getSubclassName()+"\nresults:"+getResults()+"\n}";
+    }
 }

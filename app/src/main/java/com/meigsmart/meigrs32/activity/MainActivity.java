@@ -8,9 +8,6 @@ import android.widget.TextView;
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.adapter.FunctionListAdapter;
 import com.meigsmart.meigrs32.config.Const;
-import com.meigsmart.meigrs32.db.FunctionBean;
-
-import java.util.ArrayList;
 
 import butterknife.BindArray;
 import butterknife.BindView;

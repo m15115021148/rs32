@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Window;
 
@@ -81,6 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     for (FunctionBean bean : f){
                         if (bean.getSubclassName().equals(array[i])){
                             model.setType(bean.getResults());
+                            break;
                         }else{
                             model.setType(0);
                         }
@@ -108,6 +110,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void addData(String fatherName,String subName){
+        FunctionBean sb = getSubData(fatherName, subName);
+        if (sb!=null && !TextUtils.isEmpty(sb.getSubclassName()) && !TextUtils.isEmpty(sb.getFatherName()))return;
+
         FunctionBean bean = new FunctionBean();
         bean.setFatherName(fatherName);
         bean.setSubclassName(subName);

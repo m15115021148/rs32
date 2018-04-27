@@ -32,9 +32,7 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
     }
 
     public interface OnPromptDialogCallBack{
-        void onUnTestClick();
-        void onFailClick();
-        void onPassClick();
+        void onResultListener(int result);
     }
 
     public PromptDialog(@NonNull Context context) {
@@ -86,15 +84,15 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         if (v == mUnTest){
             if (this.isShowing())dismiss();
-            if (mCallBack!=null)mCallBack.onUnTestClick();
+            if (mCallBack!=null)mCallBack.onResultListener(0);
         }
         if (v == mFail){
             if (this.isShowing())dismiss();
-            if (mCallBack!=null)mCallBack.onFailClick();
+            if (mCallBack!=null)mCallBack.onResultListener(1);
         }
         if (v == mPass){
             if (this.isShowing())dismiss();
-            if (mCallBack!=null)mCallBack.onPassClick();
+            if (mCallBack!=null)mCallBack.onResultListener(2);
         }
     }
 }

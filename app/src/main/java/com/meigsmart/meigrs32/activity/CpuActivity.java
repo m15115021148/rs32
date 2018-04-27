@@ -76,6 +76,7 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
         if (v == mBack){
             stopCpu();
             mDialog.show();
+            mDialog.setTitle(super.mName);
         }
     }
 
@@ -158,20 +159,8 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
     }
 
     @Override
-    public void onUnTestClick() {
-        updateData(mFatherName,super.mName,0);
-        deInit(0);
-    }
-
-    @Override
-    public void onFailClick() {
-        updateData(mFatherName,super.mName,1);
-        deInit(1);
-    }
-
-    @Override
-    public void onPassClick() {
-        updateData(mFatherName,super.mName,2);
-        deInit(2);
+    public void onResultListener(int result) {
+        updateData(mFatherName,super.mName,result);
+        deInit(result);
     }
 }
