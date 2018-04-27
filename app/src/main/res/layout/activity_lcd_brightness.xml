@@ -13,4 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/brightness_title"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+        <TextView
+            android:id="@+id/values"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

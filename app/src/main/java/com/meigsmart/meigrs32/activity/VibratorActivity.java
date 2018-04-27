@@ -40,12 +40,14 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == mBack){
-            mDialog.show();
+            if (!mDialog.isShowing())mDialog.show();
             mDialog.setTitle(super.mName);
         }
     }
 
     private void deInit(int results){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results);
         Intent intent = new Intent();
         intent.putExtra("results",results);
         setResult(1111,intent);
@@ -54,7 +56,6 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onResultListener(int result) {
-        updateData(mFatherName,super.mName,result);
         deInit(result);
     }
 }

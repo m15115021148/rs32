@@ -78,8 +78,10 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListAdapter.Hold
             mName.setText(model.getName());
 
             if (model.getType() == 1) {//fail
+                mImg.setChecked(false);
                 mImg.setSelected(true);
             } else if (model.getType() == 2) {//pass
+                mImg.setSelected(false);
                 mImg.setChecked(true);
             } else {//unTest
                 mImg.setSelected(false);

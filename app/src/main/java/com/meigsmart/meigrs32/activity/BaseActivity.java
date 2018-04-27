@@ -80,11 +80,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 model.setCls(cls[i]);
                 if ( f!=null && f.size()>0){
                     for (FunctionBean bean : f){
-                        if (bean.getSubclassName().equals(array[i])){
+                        if (array[i].equals(bean.getSubclassName())){
                             model.setType(bean.getResults());
                             break;
-                        }else{
-                            model.setType(0);
                         }
                     }
                 }else{

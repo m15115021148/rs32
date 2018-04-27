@@ -3,6 +3,7 @@
 
     <string name="main_title">Function Test</string>
     <string name="to_be_developed">To be developed</string>
+    <string name="brightness_title">set brightness value = </string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>
