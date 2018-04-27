@@ -58,7 +58,7 @@
         <item>@string/run_in_nfc</item>
         <item>@string/run_in_rear_camera</item>
         <item>@string/run_in_g_sensor</item>
-        <item>@string/run_in_e_sensor</item>
+        <item>@string/run_in_e_compass</item>
         <item>@string/run_in_l_sensor</item>
         <item>@string/run_in_gyro_meter</item>
         <item>@string/run_in_vibrator</item>
@@ -74,7 +74,7 @@
         <item>@integer/run_in_default_config_nfc</item>
         <item>@integer/run_in_default_config_rear_camera</item>
         <item>@integer/run_in_default_config_g_sensor</item>
-        <item>@integer/run_in_default_config_e_sensor</item>
+        <item>@integer/run_in_default_config_e_compass</item>
         <item>@integer/run_in_default_config_l_sensor</item>
         <item>@integer/run_in_default_config_gyro_meter</item>
         <item>@integer/run_in_default_config_vibrator</item>

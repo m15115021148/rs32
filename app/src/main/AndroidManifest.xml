@@ -52,7 +52,19 @@
         <activity android:name=".activity.PCBAActivity" />
         <activity android:name=".activity.RunInActivity" />
         <activity android:name=".activity.CpuActivity" />
-        <activity android:name=".activity.MemoryActivity"></activity>
+        <activity android:name=".activity.MemoryActivity" />
+        <activity android:name=".activity.BatteryActivity" />
+        <activity android:name=".activity.LCDRGBActivity" />
+        <activity android:name=".activity.LCDBrightnessActivity" />
+        <activity android:name=".activity.AudioActivity" />
+        <activity android:name=".activity.LEDActivity" />
+        <activity android:name=".activity.NFCActivity" />
+        <activity android:name=".activity.RearCameraAutoActivity" />
+        <activity android:name=".activity.GSensorActivity" />
+        <activity android:name=".activity.EComPassActivity" />
+        <activity android:name=".activity.LSensorActivity" />
+        <activity android:name=".activity.GyroMeterActivity" />
+        <activity android:name=".activity.VibratorActivity"></activity>
     </application>
 
 </manifest>

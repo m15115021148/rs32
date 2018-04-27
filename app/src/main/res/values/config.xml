@@ -37,7 +37,7 @@
     <integer name="run_in_default_config_nfc">1</integer>
     <integer name="run_in_default_config_rear_camera">1</integer>
     <integer name="run_in_default_config_g_sensor">1</integer>
-    <integer name="run_in_default_config_e_sensor">1</integer>
+    <integer name="run_in_default_config_e_compass">1</integer>
     <integer name="run_in_default_config_l_sensor">1</integer>
     <integer name="run_in_default_config_gyro_meter">1</integer>
     <integer name="run_in_default_config_vibrator">1</integer>

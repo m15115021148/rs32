@@ -44,7 +44,7 @@
     <string name="run_in_nfc">NFC Test</string>
     <string name="run_in_rear_camera">Rear Camera Auto Test</string>
     <string name="run_in_g_sensor">G-Sensor Test</string>
-    <string name="run_in_e_sensor">E-Sensor Test</string>
+    <string name="run_in_e_compass">E-ComPass Test</string>
     <string name="run_in_l_sensor">L-Sensor Test</string>
     <string name="run_in_gyro_meter">Gyro-Meter Test</string>
     <string name="run_in_vibrator">Vibrator Test</string>
