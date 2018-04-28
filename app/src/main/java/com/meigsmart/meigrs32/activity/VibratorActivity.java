@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import butterknife.BindView;
@@ -26,7 +27,7 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void initData() {
         mContext = this;
-        super.startBlockKeys = true;
+        super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_vibrator);

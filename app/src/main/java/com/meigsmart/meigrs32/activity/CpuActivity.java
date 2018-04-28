@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.cpuservice.CpuService1;
 import com.meigsmart.meigrs32.cpuservice.CpuTest;
 import com.meigsmart.meigrs32.view.PromptDialog;
@@ -34,7 +35,7 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
     @Override
     protected void initData() {
         mContext = this;
-        super.startBlockKeys = true;
+        super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_cpu);

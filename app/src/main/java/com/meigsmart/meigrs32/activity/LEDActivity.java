@@ -1,11 +1,13 @@
 package com.meigsmart.meigrs32.activity;
 
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import butterknife.BindView;
@@ -26,7 +28,7 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener ,P
     @Override
     protected void initData() {
         mContext = this;
-        super.startBlockKeys = true;
+        super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_led);
@@ -44,6 +46,17 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener ,P
             mDialog.setTitle(super.mName);
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!mDialog.isShowing())mDialog.show();
+            mDialog.setTitle(super.mName);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     private void deInit(int results){
         if (mDialog.isShowing())mDialog.dismiss();

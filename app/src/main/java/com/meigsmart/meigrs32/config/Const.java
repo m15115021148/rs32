@@ -21,6 +21,8 @@ import com.meigsmart.meigrs32.activity.VibratorActivity;
  * Created by chenMeng on 2018/4/24.
  */
 public class Const {
+    public static boolean isCanBackKey = true;
+
     public static Class[] functionList = {
             PCBAActivity.class,
             RunInActivity.class,

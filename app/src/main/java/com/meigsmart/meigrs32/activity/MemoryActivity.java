@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.util.FileUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
@@ -52,7 +53,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void initData() {
         mContext = this;
-        super.startBlockKeys = true;
+        super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_memory);

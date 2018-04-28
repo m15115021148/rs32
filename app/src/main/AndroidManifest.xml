@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CALL_PRIVILEGED"/>
+    <uses-permission android:name="android.permission.CALL_PRIVILEGED" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -31,8 +31,13 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:name=".application.MyApplication"
@@ -42,6 +47,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true" />
+
         <service
             android:name=".cpuservice.CpuService1"
             android:enabled="true"
@@ -64,13 +75,21 @@
         <activity android:name=".activity.LCDBrightnessActivity" />
         <activity android:name=".activity.AudioActivity" />
         <activity android:name=".activity.LEDActivity" />
-        <activity android:name=".activity.NFCActivity" />
+        <activity android:name=".activity.NFCActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.RearCameraAutoActivity" />
         <activity android:name=".activity.GSensorActivity" />
         <activity android:name=".activity.EComPassActivity" />
         <activity android:name=".activity.LSensorActivity" />
         <activity android:name=".activity.GyroMeterActivity" />
-        <activity android:name=".activity.VibratorActivity"></activity>
+        <activity android:name=".activity.VibratorActivity" />
     </application>
 
 </manifest>

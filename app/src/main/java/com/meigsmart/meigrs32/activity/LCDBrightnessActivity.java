@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
@@ -41,7 +42,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         mContext = this;
-        super.startBlockKeys = true;
+        super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_lcd_brightness);
@@ -53,7 +54,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
 
         pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
         curBackground = Settings.System.getInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 100);
-        LogUtil.w("curr:"+curBackground);
+
         mHandler.post(this);
     }
 
