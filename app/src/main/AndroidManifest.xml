@@ -39,6 +39,14 @@
         android:name="android.hardware.nfc"
         android:required="true" />
 
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="true"/>
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"

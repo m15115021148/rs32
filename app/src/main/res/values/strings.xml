@@ -9,6 +9,15 @@
     <string name="nfc_layout_tag1">NFC will enable automatically.</string>
     <string name="nfc_layout_tag2">Please let 4 NFC tags get close to antenna.</string>
     <string name="nfc_layout_tag3">The test will be automatically finish,or expired in 2 minutes.</string>
+    <string name="g_sensor_layout_tag">Please rotate the LCD screen to pas all the test case:</string>
+    <string name="g_sensor_up">Up:</string>
+    <string name="g_sensor_down">Down:</string>
+    <string name="g_sensor_left">Left:</string>
+    <string name="g_sensor_right">Right:</string>
+    <string name="led_flag">set status leds to</string>
+    <string name="gyro_x_angle">The angle of rotation along the X axis is:</string>
+    <string name="gyro_y_angle">The angle of rotation along the Y axis is:</string>
+    <string name="gyro_z_angle">The angle of rotation along the Z axis is:</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

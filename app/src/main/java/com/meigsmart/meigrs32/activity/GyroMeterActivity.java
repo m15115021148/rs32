@@ -1,15 +1,28 @@
 package com.meigsmart.meigrs32.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
+import com.meigsmart.meigrs32.log.LogUtil;
+import com.meigsmart.meigrs32.util.ToastUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.BindViews;
 
 public class GyroMeterActivity extends BaseActivity implements View.OnClickListener ,PromptDialog.OnPromptDialogCallBack{
     private GyroMeterActivity mContext;
@@ -18,6 +31,12 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
     @BindView(R.id.back)
     public LinearLayout mBack;
     private String mFatherName = "";
+    @BindViews({R.id.gyro_x,R.id.gyro_y,R.id.gyro_z})
+    public List<TextView> mGyroList;
+
+    private SensorManager sensorManager;//管理器对象
+
+    private Sensor gyroSensor;//传感器对象
 
     @Override
     protected int getLayoutId() {
@@ -36,6 +55,75 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
+
+        mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+        mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+        mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+
+        mHandler.sendEmptyMessageDelayed(1,2000);
+
+    }
+
+    /**
+     * 对象的初始化
+     */
+    private void init(){
+        sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
+        gyroSensor=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        if(gyroSensor==null){
+            ToastUtil.showBottomShort("gyro-meter sensor is no supper");
+            deInit(1);
+            return;
+        }else{
+            sensorManager.registerListener(sensoreventlistener, gyroSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    init();
+                    break;
+                case 2:
+                    float[] f = (float[]) msg.obj;
+                    mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[0])));
+                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[1])));
+                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[2])));
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 传感器的监听
+     */
+    private SensorEventListener sensoreventlistener=new SensorEventListener() {
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float[] value = event.values;
+            Message msg = mHandler.obtainMessage();
+            msg.what = 2;
+            msg.obj = value;
+            mHandler.sendMessage(msg);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (sensorManager!=null)sensorManager.unregisterListener(sensoreventlistener);
+        mHandler.removeMessages(1);
+        mHandler.removeMessages(2);
     }
 
     @Override

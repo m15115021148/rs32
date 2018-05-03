@@ -13,4 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/m_left"
+        android:layout_marginTop="50dp"
+        android:singleLine="true"
+        android:text="@string/g_sensor_layout_tag"
+        android:textColor="@color/black_dan"
+        android:textSize="13sp" />
+
+
+    <TextView
+        android:id="@+id/up"
+        style="@style/GSensorTextViewStyle" />
+
+    <TextView
+        android:id="@+id/down"
+        style="@style/GSensorTextViewStyle" />
+
+    <TextView
+        android:id="@+id/left"
+        style="@style/GSensorTextViewStyle" />
+
+    <TextView
+        android:id="@+id/right"
+        style="@style/GSensorTextViewStyle" />
+
 </LinearLayout>
