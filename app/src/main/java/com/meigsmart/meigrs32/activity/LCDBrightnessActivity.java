@@ -33,6 +33,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
     private PowerManager pm;
     private int curBackground = 100;
     private boolean isAdd = true;
+    private int background = 100;
 
     @Override
     protected int getLayoutId() {
@@ -54,6 +55,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
 
         pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
         curBackground = Settings.System.getInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 100);
+        background = curBackground;
         mHandler.post(this);
     }
 
@@ -76,7 +78,6 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
 
     private void deInit(int results){
         if (mDialog.isShowing())mDialog.dismiss();
-        pm.setBacklightBrightness(100);
         updateData(mFatherName,super.mName,results);
         Intent intent = new Intent();
         intent.putExtra("results",results);
@@ -112,6 +113,8 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         mHandler.removeCallbacks(this);
+        pm.setBacklightBrightness(background);
+        Settings.System.putInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, background);
         super.onDestroy();
     }
 

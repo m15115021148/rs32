@@ -18,6 +18,17 @@
     <string name="gyro_x_angle">The angle of rotation along the X axis is:</string>
     <string name="gyro_y_angle">The angle of rotation along the Y axis is:</string>
     <string name="gyro_z_angle">The angle of rotation along the Z axis is:</string>
+    <string name="l_sensor_tag">Light sensor value = </string>
+    <string name="l_sensor_tag1">Please fully cover light sensor,\n the test value should be smaller than 50</string>
+    <string name="l_sensor_tag2">After that,do not cover the sensor , \n the test value should be larger than 50</string>
+    <string name="l_sensor_tag3">The test will be automatically finish , \n or expired in 15 second.</string>
+    <string name="vibrator_tag">Make sure the device lies flat on a table,\n Test will audo run in 2 seconds.</string>
+    <string name="vibrator_tag1">Do not touch device while testing</string>
+    <!-- camera test -->
+    <string name="flashlight_text">Flashlight</string>
+    <string name="switch_camera">Switch</string>
+    <string name="preview">Preview</string>
+    <string name="takephoto">TakePhoto</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

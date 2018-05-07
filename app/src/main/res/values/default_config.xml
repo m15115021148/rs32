@@ -57,8 +57,8 @@
     <integer name="e_compass_default_config_standard_result">1</integer>
 
     <!-- L-Sensor Test-->
-    <!-- L-Sensor critical result-->Gyro-Meter
-    <integer name="l_sensor_default_config_standard_result">1</integer>
+    <!-- L-Sensor critical result-->
+    <integer name="l_sensor_default_config_standard_result">50</integer>
 
     <!-- Gyro-Meter Test-->
     <!-- Gyro-Meter critical result-->
