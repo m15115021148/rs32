@@ -34,6 +34,12 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
     private int curBackground = 100;
     private boolean isAdd = true;
     private int background = 100;
+    @BindView(R.id.flag)
+    public TextView mFlag;
+
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
 
     @Override
     protected int getLayoutId() {
@@ -48,6 +54,11 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_lcd_brightness);
 
+        mConfigResult = getResources().getInteger(R.integer.lcd_brightness_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
@@ -56,7 +67,22 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
         curBackground = Settings.System.getInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 100);
         background = curBackground;
-        mHandler.post(this);
+
+        mFlag.setText(R.string.start_tag);
+        mHandler.postDelayed(this,2000);
+
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1001);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -64,7 +90,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
+            deInit(SUCCESS);
         }
     };
 
@@ -104,6 +130,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         if (curBackground == 1){
             isAdd = true;
         }
+        mFlag.setText(R.string.brightness_title);
         mValues.setText(String.valueOf(curBackground));
         pm.setBacklightBrightness(curBackground);
         Settings.System.putInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, curBackground);
@@ -112,6 +139,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void onDestroy() {
+        mHandler.removeCallbacks(mRun);
         mHandler.removeCallbacks(this);
         pm.setBacklightBrightness(background);
         Settings.System.putInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, background);

@@ -15,6 +15,7 @@ import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.util.FileUtil;
+import com.meigsmart.meigrs32.util.ToastUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import java.io.ByteArrayInputStream;
@@ -45,6 +46,13 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
     private Thread mWriteThread;
     private Thread mReadThread;
 
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
+    private boolean isCustomPath ;
+    private String mCustomPath;
+    private String mCustomFileName ;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_memory;
@@ -58,14 +66,46 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_memory);
 
+        mConfigResult = getResources().getInteger(R.integer.memory_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        isCustomPath = getResources().getBoolean(R.bool.memory_default_config_is_user_custom_path);
+        mCustomPath = getResources().getString(R.string.memory_default_config_custom_path);
+        mCustomFileName = getResources().getString(R.string.memory_default_config_custom_file_name);
+        LogUtil.d("mConfigResult:" + mConfigResult +
+                " mConfigTime:" + mConfigTime+
+                " mCustomPath:" + mCustomPath+
+                " mCustomFileName:"+mCustomFileName+
+                " isCustomPath:"+isCustomPath);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
 
-        path = FileUtil.createInnerPath(this,"memory_test.txt");
+        mResult.setText(R.string.start_tag);
+        mHandler.sendEmptyMessageDelayed(1113,2000);
 
-        init(FileUtil.getFileSize(new File(path))>0?path:"");
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1111);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stop();
+        mHandler.removeCallbacks(mRun);
+        mHandler.removeCallbacks(mReadThread);
+        mHandler.removeCallbacks(mWriteThread);
     }
 
     @SuppressLint("HandlerLeak")
@@ -99,6 +139,34 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                     mProgress.setProgress(0);
 
                     init(path);
+                    break;
+                case 1113:
+                    if (isCustomPath){
+                        if (!TextUtils.isEmpty(mCustomPath) && !TextUtils.isEmpty(mCustomFileName)){
+                            File file = FileUtil.createRootDirectory(mCustomPath);
+                            File f = new File(file.getPath(),mCustomFileName);
+                            if (f.exists() && FileUtil.getFileSize(f)<=500){
+                                path = f.getPath();
+                            }else{
+                                ToastUtil.showBottomShort("The content of the file is too large，preferably less than 500kb");
+                                mHandler.sendEmptyMessageAtTime(1112,2000);
+                            }
+                        }else {
+                            ToastUtil.showBottomShort("the file path is not null");
+                            mHandler.sendEmptyMessageAtTime(1112,2000);
+                        }
+                    }else{
+                        mCustomFileName = "memory.txt";
+                        path = FileUtil.createInnerPath(mContext,mCustomFileName);
+                    }
+
+                    init(FileUtil.getFileSize(new File(path))>0?path:"");
+                    break;
+                case 1111:
+                    deInit(2);
+                    break;
+                case 1112:
+                    deInit(1);
                     break;
                 default:
                     break;
@@ -149,6 +217,9 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         mHandler.removeMessages(1002);
         mHandler.removeMessages(1003);
         mHandler.removeMessages(1004);
+        mHandler.removeMessages(1111);
+        mHandler.removeMessages(1112);
+        mHandler.removeMessages(1113);
 //        if (mReadThread!=null)mReadThread.interrupt();
 //        if (mWriteThread!=null)mWriteThread.interrupt();
     }
@@ -243,7 +314,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
     public void readFromResets() {
         try {
             int line;
-            InputStream is = this.getAssets().open("memory.txt");
+            InputStream is = this.getAssets().open(mCustomFileName);
 
             length = is.available();
             mProgress.setMax(length);//设置进度条最大值

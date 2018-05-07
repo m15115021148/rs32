@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
+import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import butterknife.BindView;
@@ -30,9 +31,12 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
             Color.parseColor("#FF0000"),Color.parseColor("#00FF00"),Color.parseColor("#0000FF"),
             Color.parseColor("#888888"),Color.parseColor("#000000"),Color.parseColor("#FFFFFF"),
     };
-    private int TIME_VALUES = 2000;
+    private int TIME_VALUES = 1000;
     private int currPosition = 0;
-    private int count = 0;
+    @BindView(R.id.flag)
+    public TextView mFlag;
+    private int mConfigResult;
+    private int mConfigTime;
 
     @Override
     protected int getLayoutId() {
@@ -47,12 +51,17 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_lcd_rgb);
 
+        mConfigResult = getResources().getInteger(R.integer.lcd_rgb_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
 
-        mHandler.post(this);
+        mHandler.postDelayed(this,2000);
     }
 
     @SuppressLint("HandlerLeak")
@@ -60,9 +69,21 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            deInit(2);
+            if (mConfigResult>=1){
+                deInit(2);
+            }else {
+                deInit(1);
+            }
+
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(this);
+        mHandler.removeMessages(1001);
+    }
 
     @Override
     public void onClick(View v) {
@@ -98,16 +119,15 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void run() {
+        mFlag.setVisibility(View.GONE);
         mLayout.setBackgroundColor(ids[currPosition]);
         currPosition++;
         if (currPosition == 6){
             currPosition = 0;
-            count++;
         }
-        if (count == 2){
-            count = 0;
-            mHandler.removeCallbacks(this);
-            mHandler.sendEmptyMessageDelayed(1001,TIME_VALUES);
+        mConfigTime--;
+        if (mConfigTime == 0) {
+            mHandler.sendEmptyMessage(1001);
         }
         mHandler.postDelayed(this,TIME_VALUES);
     }

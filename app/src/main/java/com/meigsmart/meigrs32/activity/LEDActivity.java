@@ -30,6 +30,8 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
     private String mFatherName = "";
     @BindView(R.id.leds)
     public TextView mLeds;
+    @BindView(R.id.flag)
+    public TextView mFlag;
 
     private static String green =  "/sys/class/leds/green/brightness";//"/sys/devices/soc.0/gpio-leds.72/leds/green/brightness";//
     private static String red =  "/sys/class/leds/red/brightness";//"/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0045/leds/red/brightness";//
@@ -40,7 +42,10 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
     private String[] colorTitle = {"RED","GREEN","BLUE","GREEN"};
     private int TIME_VALUES = 2000;
     private int currPosition = 0;
-    private int count = 0;
+
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
 
     @Override
     protected int getLayoutId() {
@@ -55,11 +60,30 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_led);
 
+        mConfigResult = getResources().getInteger(R.integer.leds_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
+
+        mFlag.setText(R.string.start_tag);
         mHandler.postDelayed(this,TIME_VALUES);
+
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1001);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
     }
 
     @SuppressLint("HandlerLeak")
@@ -67,13 +91,14 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            deInit(2);
+            deInit(SUCCESS);
         }
     };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mHandler.removeCallbacks(mRun);
         mHandler.removeCallbacks(this);
         mHandler.removeMessages(1001);
     }
@@ -94,10 +119,10 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
             LogUtil.e(e.getMessage());
-            deInit(1);
+            deInit(FAILURE);
         } catch (IOException e) {
             LogUtil.e(e.getMessage());
-            deInit(1);
+            deInit(FAILURE);
         }
     }
 
@@ -128,18 +153,13 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void run() {
+        mFlag.setText(R.string.led_flag);
         enableDevice(colors[currPosition],false);
         enableDevice(colors[currPosition],true);
         mLeds.setText(colorTitle[currPosition]);
         currPosition++;
         if (currPosition == 3){
             currPosition = 0;
-            count++;
-        }
-        if (count == 2){
-            count = 0;
-            mHandler.removeCallbacks(this);
-            mHandler.sendEmptyMessageDelayed(1001,TIME_VALUES);
         }
         mHandler.postDelayed(this,TIME_VALUES);
     }

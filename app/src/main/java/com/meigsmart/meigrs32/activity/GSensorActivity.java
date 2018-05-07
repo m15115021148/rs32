@@ -36,6 +36,8 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
     private String mFatherName = "";
     @BindViews({R.id.up,R.id.down,R.id.left,R.id.right})
     public List<TextView> mTextViewList;
+    @BindView(R.id.flag)
+    public TextView mFlag;
 
     private Sensor sensor = null;
     private SensorEventListener listener = null;
@@ -56,6 +58,10 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
     private static final int DATA_Z = 2;
     private static final int DELAY_TIME = 300;
 
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_g_sensor;
@@ -69,17 +75,30 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_g_sensor);
 
+        mConfigResult = getResources().getInteger(R.integer.g_sensor_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
 
-        mTextViewList.get(0).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_up)));
-        mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)));
-        mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)));
-        mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)));
+        mFlag.setText(R.string.start_tag);
+        mHandler.sendEmptyMessageDelayed(1001,2000);
 
-        initSensor();
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1002);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
     }
 
     @SuppressLint("HandlerLeak")
@@ -87,50 +106,46 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (upok)mTextViewList.get(0).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_up)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
-            if (downok)mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
-            if (leftok)mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
-            if (rightok)mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+            switch (msg.what){
+                case 1001:
+                    mFlag.setText(R.string.g_sensor_layout_tag);
+                    mTextViewList.get(0).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_up)));
+                    mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)));
+                    mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)));
+                    mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)));
 
+                    initSensor();
+                    break;
+                case 1002:
+                    if (upok && downok && leftok && rightok){
+                        deInit(SUCCESS);
+                    }else {
+                        deInit(FAILURE);
+                    }
+                    break;
+                case 1003:
+                    if (upok)mTextViewList.get(0).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_up)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+                    if (downok)mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+                    if (leftok)mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+                    if (rightok)mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+                    break;
+            }
         }
     };
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        manager.unregisterListener(listener);
+        mHandler.removeCallbacks(mRun);
+        mHandler.removeMessages(1001);
+        mHandler.removeMessages(1002);
+        mHandler.removeMessages(1003);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        manager.registerListener(listener, sensor,
-                SensorManager.SENSOR_DELAY_GAME);
-
-        if (mTimer != null) {
-            mTimer.cancel();
-            mTimer = null;
-        }
-
-        mTimer = new Timer();
-        mTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        if (mValues != null) {
-                            float x = mValues[DATA_X];
-                            float y = mValues[DATA_Y];
-                            float z = mValues[DATA_Z];
-                            if (Math.abs(x) < 1) {
-                                x = 0;
-                            }
-                            if (Math.abs(y) < 1) {
-                                y = 0;
-                            }
-                            if (Math.abs(z) < 1) {
-                                z = 0;
-                            }
-                            showArrow(x, y, z);
-                        }
-                    }
-                });
-            }
-        }, 0, DELAY_TIME);
     }
 
     private void showArrow(float x, float y, float z) {
@@ -154,7 +169,7 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
                 leftok = true;
             }
         }
-        mHandler.sendEmptyMessage(1001);
+        mHandler.sendEmptyMessage(1003);
     }
 
     @Override
@@ -233,6 +248,40 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         assert manager != null;
         sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        manager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_GAME);
+
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
+
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (mValues != null) {
+                            float x = mValues[DATA_X];
+                            float y = mValues[DATA_Y];
+                            float z = mValues[DATA_Z];
+                            if (Math.abs(x) < 1) {
+                                x = 0;
+                            }
+                            if (Math.abs(y) < 1) {
+                                y = 0;
+                            }
+                            if (Math.abs(z) < 1) {
+                                z = 0;
+                            }
+                            showArrow(x, y, z);
+                        }
+                    }
+                });
+            }
+        }, 0, DELAY_TIME);
+
     }
 
     @Override

@@ -136,6 +136,18 @@ public class FileUtil {
     }
 
     /**
+     * 创建根目录 自动区分是否在sd卡 还是内部储存
+     * @param fileName 根目录 名称
+     * @return
+     */
+    public static File createRootDirectory(String fileName){
+        String filePath =  Environment.getExternalStorageDirectory().toString() + "/";
+        File file = new File(filePath +  fileName);
+        file.mkdir();
+        return file;
+    }
+
+    /**
      * 创建文件夹
      * @param filePath
      * @return

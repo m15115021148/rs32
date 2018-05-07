@@ -168,10 +168,10 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1001:
-                    if (isCanOpen)deInit(2);
+                    if (isCanOpen)deInit(SUCCESS);
                     break;
                 case 1002:
-                    deInit(1);
+                    deInit(FAILURE);
                     break;
             }
         }

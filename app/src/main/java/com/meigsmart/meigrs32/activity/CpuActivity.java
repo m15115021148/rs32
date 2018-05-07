@@ -12,6 +12,7 @@ import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.cpuservice.CpuService1;
 import com.meigsmart.meigrs32.cpuservice.CpuTest;
+import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import java.io.RandomAccessFile;
@@ -27,6 +28,11 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
     private CpuTest mCpuTest;
     private String mFatherName = "";
 
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
+    private int count = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_cpu;
@@ -41,6 +47,11 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
         mTitle.setText(R.string.run_in_cpu);
         mDialog.setCallBack(this);
 
+        mConfigResult = getResources().getInteger(R.integer.cpu_default_config_threshold);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
 
@@ -48,11 +59,24 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
 
         init();
 
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1003);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mHandler.removeCallbacks(mRun);
         stopCpu();
     }
 
@@ -67,6 +91,13 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
                     break;
                 case 1002:
                     useCpu();
+                    break;
+                case 1003:
+                    if (count>=10){
+                        deInit(2);
+                    }else{
+                        deInit(1);
+                    }
                     break;
             }
         }
@@ -92,12 +123,14 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
         }
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
+        mHandler.removeMessages(1003);
     }
 
     private void calculateCpuUsage() {
         new Thread(new Runnable() {
             public void run() {
                 float f = readUsage();
+                if ( f >= mConfigResult )count++;
                 String str = "Cpu Usage : " + f + "%";
                 updateCpuInfoText(str);
                 mHandler.sendEmptyMessageDelayed(1001, 1000L);

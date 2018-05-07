@@ -21,11 +21,20 @@ public class MusicService extends Service {
     public MusicService() {
     }
 
-    private MusicService getInstance(){
+    private MusicService getInstance(boolean isCustom,String customFilePath){
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.reset();
-        setDefaultDataSource();
+        if (isCustom){
+            try {
+                mediaPlayer.setDataSource(customFilePath);
+            } catch (IOException e) {
+                stop();
+                e.printStackTrace();
+            }
+        }else{
+            setDefaultDataSource();
+        }
         mediaPlayer.setLooping(false);
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -58,8 +67,8 @@ public class MusicService extends Service {
     public MyBinder binder = new MyBinder();
 
     public class MyBinder extends Binder {
-        public MusicService getService() {
-            return getInstance();
+        public MusicService getService(boolean isCustom,String customFilePath) {
+            return getInstance(isCustom, customFilePath);
         }
     }
 

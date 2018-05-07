@@ -2,15 +2,17 @@
 <resources>
 
     <!--cpu Test-->
-    <string name="cpu_default_config_threshold">70%</string>
+    <integer name="cpu_default_config_threshold">70</integer>
 
     <!--Memory Test-->
+    <!-- the Battery power test -->
+    <integer name="memory_default_config_standard_result">1</integer>
     <!--Whether to use a custom path-->
     <bool name="memory_default_config_is_user_custom_path">false</bool>
     <!-- the custom path-->
-    <string name="memory_default_config_custom_path">Meig/</string>
+    <string name="memory_default_config_custom_path">Download/</string>
     <!-- the custom path fileName-->
-    <string name="memory_default_config_custom_file_name">memory.txt</string>
+    <string name="memory_default_config_custom_file_name">test.txt</string>
     
     <!--Battery Test-->
     <!-- the battery standard capacity (mA)-->

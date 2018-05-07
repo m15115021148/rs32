@@ -8,7 +8,7 @@
     <string name="nfc_layout_tag">Please let NFC tag get close to antenna</string>
     <string name="nfc_layout_tag1">NFC will enable automatically.</string>
     <string name="nfc_layout_tag2">Please let 4 NFC tags get close to antenna.</string>
-    <string name="nfc_layout_tag3">The test will be automatically finish,or expired in 2 minutes.</string>
+    <string name="nfc_layout_tag3">The test will be automatically finish,or expired in 1 minutes.</string>
     <string name="g_sensor_layout_tag">Please rotate the LCD screen to pas all the test case:</string>
     <string name="g_sensor_up">Up:</string>
     <string name="g_sensor_down">Down:</string>
@@ -29,6 +29,7 @@
     <string name="switch_camera">Switch</string>
     <string name="preview">Preview</string>
     <string name="takephoto">TakePhoto</string>
+    <string name="start_tag">Test will run in 2 seconds start</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

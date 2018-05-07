@@ -35,6 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected PromptDialog mDialog;
     protected String mName = "";
     protected List<FunctionBean> mList = new ArrayList<>();
+    protected int SUCCESS = 2;
+    protected int FAILURE = 1;
+    protected int NOTEST = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

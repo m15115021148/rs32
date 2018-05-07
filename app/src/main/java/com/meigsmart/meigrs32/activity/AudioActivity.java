@@ -1,11 +1,14 @@
 package com.meigsmart.meigrs32.activity;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -16,9 +19,13 @@ import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
+import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.service.MusicService;
+import com.meigsmart.meigrs32.util.FileUtil;
+import com.meigsmart.meigrs32.util.ToastUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
@@ -46,6 +53,15 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
     private ObjectAnimator animator;
     private Intent intentMusic;
 
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
+    private boolean isCustomPath ;
+    private String mCustomPath;
+    private String mCustomFileName ;
+
+    private String mCustomFilePath ;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_audio;
@@ -59,12 +75,73 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_audio);
 
+        mConfigResult = getResources().getInteger(R.integer.audio_auto_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        isCustomPath = getResources().getBoolean(R.bool.audio_default_config_is_user_custom_path);
+        mCustomPath = getResources().getString(R.string.audio_default_config_custom_path);
+        mCustomFileName = getResources().getString(R.string.audio_default_config_custom_file_name);
+        LogUtil.d("mConfigResult:" + mConfigResult +
+                " mConfigTime:" + mConfigTime+
+                " mCustomPath:" + mCustomPath+
+                " mCustomFileName:"+mCustomFileName+
+                " isCustomPath:"+isCustomPath);
+        mCustomFilePath = getCustomFilePath();
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
         bindServiceConnection();
+
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1001);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
+
     }
+
+    private String getCustomFilePath(){
+        if (isCustomPath){
+            if (!TextUtils.isEmpty(mCustomPath) && !TextUtils.isEmpty(mCustomFileName)){
+                File file = FileUtil.createRootDirectory(mCustomPath);
+                File f = new File(file.getPath(),mCustomFileName);
+                if (f.exists()){
+                    return f.getPath();
+                }else{
+                    ToastUtil.showBottomShort("the file is not exists");
+                    mHandler.sendEmptyMessageAtTime(1002,2000);
+                }
+            }else {
+                ToastUtil.showBottomShort("the file path is not null");
+                mHandler.sendEmptyMessageAtTime(1002,2000);
+            }
+        }
+        return null;
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1001:
+                    deInit(SUCCESS);
+                    break;
+                case 1002:
+                    deInit(FAILURE);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onDestroy() {
@@ -101,7 +178,7 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            musicService = ((MusicService.MyBinder) (service)).getService();
+            musicService = ((MusicService.MyBinder) (service)).getService(isCustomPath,mCustomFilePath);
             handler.post(AudioActivity.this);
             mTotalTime.setText(time.format(musicService.mediaPlayer.getDuration()));
             rotationImg();
@@ -138,7 +215,7 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
             handler.removeCallbacks(this);
             unbindService(serviceConnection);
             if (intentMusic!=null)stopService(intentMusic);
-            deInit(2);
+            deInit(SUCCESS);
         }
     }
 
