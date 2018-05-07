@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--cpu Test-->
+    <string name="cpu_default_config_threshold">70%</string>
+
+    <!--Memory Test-->
+    <!--Whether to use a custom path-->
+    <bool name="memory_default_config_is_user_custom_path">false</bool>
+    <!-- the custom path-->
+    <string name="memory_default_config_custom_path">Meig/</string>
+    <!-- the custom path fileName-->
+    <string name="memory_default_config_custom_file_name">memory.txt</string>
+    
+    <!--Battery Test-->
+    <!-- the battery standard capacity (mA)-->
+    <integer name="battery_default_config_standard_capacity">1000</integer>
+    <!-- the Battery charge test -->
+    <integer name="battery_charge_default_config_standard_result">1</integer>
+    <!-- the Battery power test -->
+    <integer name="battery_power_default_config_standard_result">1</integer>
+
+    <!--Audio Test-->
+    <!--Whether to use a custom path-->
+    <bool name="audio_default_config_is_user_custom_path">false</bool>
+    <!-- the custom path-->
+    <string name="audio_default_config_custom_path">Meig/</string>
+    <!-- the custom path fileName-->
+    <string name="audio_default_config_custom_file_name">test.mp3</string>
+    <!-- audio auto critical result-->
+    <integer name="audio_auto_default_config_standard_result">1</integer>
+
+    <!--LCD R/G/B Test-->
+    <!--LCD R/G/B Test critical result-->
+    <integer name="lcd_rgb_default_config_standard_result">1</integer>
+    <!--LCD Brightness Test critical result-->
+    <integer name="lcd_brightness_default_config_standard_result">1</integer>
+
+    <!--LED  Test-->
+    <!--LED Test critical result-->
+    <integer name="leds_default_config_standard_result">1</integer>
+
+    <!--NFC  Test-->
+    <!--NFC Test critical result-->
+    <integer name="nfc_default_config_standard_result">1</integer>
+
+    <!--rear camera auto  Test-->
+    <!--rear camera auto Test critical result-->
+    <integer name="rear_camera_auto_default_config_standard_result">1</integer>
+
+    <!-- G-Sensor Test-->
+    <!-- G-Sensor critical result-->
+    <integer name="g_sensor_default_config_standard_result">1</integer>
+
+    <!-- E-comPass Test-->
+    <!-- E-comPass critical result-->
+    <integer name="e_compass_default_config_standard_result">1</integer>
+
+    <!-- L-Sensor Test-->
+    <!-- L-Sensor critical result-->Gyro-Meter
+    <integer name="l_sensor_default_config_standard_result">1</integer>
+
+    <!-- Gyro-Meter Test-->
+    <!-- Gyro-Meter critical result-->
+    <integer name="gyro_meter_default_config_standard_result">1</integer>
+
+    <!-- Vibrator  Test-->
+    <!-- Vibrator  critical result-->
+    <integer name="vibrator_default_config_standard_result">1</integer>
+
+    <!-- Card  Test-->
+    <!-- Micro SD  critical result-->
+    <integer name="micro_sd_default_config_standard_result">1</integer>
+    <!-- SIM Card  critical result-->
+    <integer name="sim_card_default_config_standard_result">1</integer>
+    <!-- SAM Card  critical result-->
+    <integer name="sam_card_default_config_standard_result">1</integer>
+
+    <!-- Second Camera  Test-->
+    <!-- Second Camera  critical result-->
+    <integer name="second_camera_default_config_standard_result">1</integer>
+
+    <!-- RFID  Test-->
+    <!-- RFID  critical result-->
+    <integer name="rfid_default_config_standard_result">1</integer>
+
+    <!-- RTC Time  Test-->
+    <!-- RTC Time  critical result-->
+    <integer name="rtc_time_default_config_standard_result">1</integer>
+
+    <!-- LCM  Test-->
+    <!-- line drawing mouth type  critical result-->
+    <integer name="lcm_mouth_default_config_standard_result">1</integer>
+    <!-- line drawing diagonal type  critical result-->
+    <integer name="lcm_diagonal_default_config_standard_result">1</integer>
+    <!-- line drawing three fingers type  critical result-->
+    <integer name="lcm_three_fingers_default_config_standard_result">1</integer>
+
+    <!-- RF Test -->
+    <!-- RF  critical result-->
+    <integer name="rf_default_config_standard_result">1</integer>
+
+    <!-- bt Test -->
+    <!-- bt  critical result-->
+    <integer name="bt_default_config_standard_result">1</integer>
+
+    <!-- wifi Test -->
+    <!-- wifi  critical result-->
+    <integer name="wifi_default_config_standard_result">1</integer>
+
+    <!-- gps Test -->
+    <!-- gps  critical result-->
+    <integer name="gps_default_config_standard_result">1</integer>
+
+    <!-- reader Test -->
+    <!-- reader  critical result-->
+    <integer name="reader_default_config_standard_result">1</integer>
+
+    <!-- power Test -->
+    <!-- System Power consumption  critical result-->
+    <integer name="power_consumption_default_config_standard_result">1</integer>
+
+    <!-- Information Check Test -->
+    <!-- Information Check critical result-->
+    <integer name="information_check_default_config_standard_result">1</integer>
+
+    <!-- WIFI Test -->
+    <!-- wifi mac address critical result-->
+    <integer name="wifi_mac_address_default_config_standard_result">1</integer>
+
+    <!-- Audio Function Test -->
+    <!-- Earphone  critical result-->
+    <integer name="earphone_default_config_standard_result">1</integer>
+    <!-- Speaker   critical result-->
+    <integer name="speaker_default_config_standard_result">1</integer>
+    <!-- Receiver/Mic  critical result-->
+    <integer name="receiver_mic_default_config_standard_result">1</integer>
+    <!-- Record   critical result-->
+    <integer name="record_default_config_standard_result">1</integer>
+
+</resources>

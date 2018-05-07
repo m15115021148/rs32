@@ -29,8 +29,8 @@ public class CpuInfo {
     }
 
     private void initContentView(View paramView) {
-        this.mState = paramView.findViewById(R.id.status);
-        this.mLevel = paramView.findViewById(R.id.level);
+        this.mState = (TextView) paramView.findViewById(R.id.status);
+        this.mLevel = (TextView) paramView.findViewById(R.id.level);
     }
 
     private void initFloatingWindow() {

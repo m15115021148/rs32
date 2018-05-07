@@ -66,10 +66,10 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
 
-        mTitle = findViewById(R.id.dialogTitle);
-        mUnTest = findViewById(R.id.unTest);
-        mFail = findViewById(R.id.fail);
-        mPass = findViewById(R.id.pass);
+        mTitle = (TextView) findViewById(R.id.dialogTitle);
+        mUnTest = (TextView) findViewById(R.id.unTest);
+        mFail = (TextView) findViewById(R.id.fail);
+        mPass = (TextView) findViewById(R.id.pass);
         mUnTest.setOnClickListener(this);
         mFail.setOnClickListener(this);
         mPass.setOnClickListener(this);

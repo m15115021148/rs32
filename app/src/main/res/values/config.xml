@@ -41,4 +41,52 @@
     <integer name="run_in_default_config_l_sensor">1</integer>
     <integer name="run_in_default_config_gyro_meter">1</integer>
     <integer name="run_in_default_config_vibrator">1</integer>
+
+    <!-- pre-function default config -->
+    <integer name="pre_function_default_config_battery">1</integer>
+    <integer name="pre_function_default_config_lcd_rgb">1</integer>
+    <integer name="pre_function_default_config_lcd_brightness">1</integer>
+    <integer name="pre_function_default_config_water_ripple">1</integer>
+    <integer name="pre_function_default_config_led">1</integer>
+    <integer name="pre_function_default_config_micro_sd">1</integer>
+    <integer name="pre_function_default_config_sim_card">1</integer>
+    <integer name="pre_function_default_config_sam_card">1</integer>
+    <integer name="pre_function_default_config_second_camera">1</integer>
+    <integer name="pre_function_default_config_g_sensor">1</integer>
+    <integer name="pre_function_default_config_e_compass">1</integer>
+    <integer name="pre_function_default_config_l_sensor">1</integer>
+    <integer name="pre_function_default_config_gyro_meter">1</integer>
+    <integer name="pre_function_default_config_vibrator">1</integer>
+    <integer name="pre_function_default_config_rfid">1</integer>
+    <integer name="pre_function_default_config_rtc_time">1</integer>
+
+    <!-- fat(Finished Assembly Test) default config -->
+    <integer name="fat_default_config_line_drawing_mouth_type">1</integer>
+    <integer name="fat_default_config_line_drawing_diagonal_type">1</integer>
+    <integer name="fat_default_config_line_drawing_three_fingers">1</integer>
+    <integer name="fat_default_config_audio_auto">1</integer>
+    <integer name="fat_default_config_rf">1</integer>
+    <integer name="fat_default_config_wifi">1</integer>
+    <integer name="fat_default_config_bt">1</integer>
+    <integer name="fat_default_config_nfc">1</integer>
+    <integer name="fat_default_config_gps">1</integer>
+    <integer name="fat_default_config_rear_camera_auto">1</integer>
+    <integer name="fat_default_config_second_camera">1</integer>
+    <integer name="fat_default_config_reader">1</integer>
+    <integer name="fat_default_config_g_sensor">1</integer>
+    <integer name="fat_default_config_power">1</integer>
+
+    <!-- Information Check default config -->
+    <integer name="information_check_default_config_cpu">1</integer>
+    <integer name="information_check_default_config_memory">1</integer>
+    <integer name="information_check_default_config_shipping_battery">1</integer>
+    <integer name="information_check_default_config_information_check">1</integer>
+    <integer name="information_check_default_config_wifi">1</integer>
+
+    <!-- Wireless default config -->
+    <integer name="wireless_default_config_gps">1</integer>
+    <integer name="wireless_default_config_bt">1</integer>
+    <integer name="wireless_default_config_wifi">1</integer>
+    <integer name="wireless_default_config_3g_rf">1</integer>
+
 </resources>

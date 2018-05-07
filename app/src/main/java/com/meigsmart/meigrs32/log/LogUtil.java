@@ -1,7 +1,8 @@
 package com.meigsmart.meigrs32.log;
 
-import android.arch.core.BuildConfig;
 import android.util.Log;
+
+import com.meigsmart.meigrs32.BuildConfig;
 
 /**
  * Created by chenMeng on 2018/4/20.
