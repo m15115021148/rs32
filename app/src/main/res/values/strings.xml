@@ -30,6 +30,7 @@
     <string name="preview">Preview</string>
     <string name="takephoto">TakePhoto</string>
     <string name="start_tag">Test will run in 2 seconds start</string>
+    <string name="run_in_test_finish">Run-In Test has been completed</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

@@ -145,10 +145,14 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        if (musicService!=null)musicService.stop();
         if (intentMusic!=null)stopService(intentMusic);
         unbindService(serviceConnection);
         handler.removeCallbacks(this);
+        mHandler.removeCallbacks(mRun);
+        mHandler.removeMessages(1001);
+        mHandler.removeMessages(1002);
+        super.onDestroy();
     }
 
     @Override

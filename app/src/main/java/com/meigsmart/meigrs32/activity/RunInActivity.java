@@ -1,6 +1,9 @@
 package com.meigsmart.meigrs32.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,6 +16,7 @@ import com.meigsmart.meigrs32.adapter.CheckListAdapter;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.db.FunctionBean;
 import com.meigsmart.meigrs32.log.LogUtil;
+import com.meigsmart.meigrs32.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,14 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
     private CheckListAdapter mAdapter;
     private int currPosition = 0;
 
+    private int DELAY_TIME = 2000;
+
+    private String mDefaultPath;
+    private boolean isCustomPath ;
+    private String mCustomPath;
+    private String mFileName ;
+    private int mRoundsNumber;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_run_in;
@@ -48,6 +60,12 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.function_run_in);
 
+        mDefaultPath = getResources().getString(R.string.run_in_save_log_default_path);
+        mFileName = getResources().getString(R.string.run_in_save_log_file_name);
+        mRoundsNumber = getResources().getInteger(R.integer.run_in_test_rounds_number);
+        isCustomPath = getResources().getBoolean(R.bool.run_in_save_log_is_user_custom);
+        mCustomPath = getResources().getString(R.string.run_in_save_log_custom_path);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CheckListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
@@ -59,6 +77,35 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
         }
 
         mAdapter.setData(getData(mRunInList,mRunInListConfig, Const.runInList,super.mList));
+        ToastUtil.showBottomLong(getResources().getString(R.string.start_tag));
+        mHandler.sendEmptyMessageDelayed(1001,DELAY_TIME);
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1001:
+                    if (currPosition == 0){
+                        mRoundsNumber--;
+                    }
+                    startActivity(mAdapter.getData().get(currPosition));
+                    break;
+                case 1002://test finish
+                    ToastUtil.showBottomShort(getResources().getString(R.string.run_in_test_finish));
+                    break;
+            }
+        }
+    };
+
+    private void initDefaultPath(){
+
+    }
+
+    private void initCustomPath(){
+
     }
 
     @Override
@@ -68,8 +115,8 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onItemClick(int position) {
-        currPosition = position;
-        startActivity(mAdapter.getData().get(position));
+//        currPosition = position;
+//        startActivity(mAdapter.getData().get(position));
     }
 
     @Override
@@ -79,6 +126,15 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
                 int results = data.getIntExtra("results",0);
                 mAdapter.getData().get(currPosition).setType(results);
                 mAdapter.notifyDataSetChanged();
+                currPosition++;
+                if ( currPosition == Const.runInList.length ){
+                    currPosition = 0;
+                    if (mRoundsNumber == 0){
+                        mHandler.sendEmptyMessageDelayed(1002,DELAY_TIME);
+                        return;
+                    }
+                }
+                mHandler.sendEmptyMessageDelayed(1001,DELAY_TIME);
             }
         }
     }

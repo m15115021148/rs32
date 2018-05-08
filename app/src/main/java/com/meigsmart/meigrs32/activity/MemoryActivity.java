@@ -160,7 +160,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                         path = FileUtil.createInnerPath(mContext,mCustomFileName);
                     }
 
-                    init(FileUtil.getFileSize(new File(path))>0?path:"");
+                    init(isCustomPath?path:"");
                     break;
                 case 1111:
                     deInit(SUCCESS);
