@@ -2,11 +2,11 @@
 <resources >
 
     <!--runIn test save log default path-->
-    <string name="run_in_save_log_default_path">MeiGFunction/RunIn/</string>
+    <string name="run_in_save_log_default_path">MeiGFunction/RunIn</string>
     <!--runIn test save log file name-->
     <string name="run_in_save_log_file_name">json.log</string>
     <!--runIn test save log custom path-->
-    <string name="run_in_save_log_custom_path">MeiG/RunInTest/</string>
+    <string name="run_in_save_log_custom_path">MeiG/RunInTest</string>
     <!--runIn test save log is user custom-->
     <bool name="run_in_save_log_is_user_custom">false</bool>
     <!--runIn test time default One minute -->

@@ -26,7 +26,7 @@
     <!--Whether to use a custom path-->
     <bool name="audio_default_config_is_user_custom_path">false</bool>
     <!-- the custom path-->
-    <string name="audio_default_config_custom_path">Meig/</string>
+    <string name="audio_default_config_custom_path">MeiG/</string>
     <!-- the custom path fileName-->
     <string name="audio_default_config_custom_file_name">test.mp3</string>
     <!-- audio auto critical result-->

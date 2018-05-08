@@ -2,11 +2,11 @@
 <resources>
 
     <!-- fat test save log default path-->
-    <string name="fat_save_log_default_path">MeiGFunction/Fat/</string>
+    <string name="fat_save_log_default_path">MeiGFunction/Fat</string>
     <!-- fat test save log file name-->
     <string name="fat_save_log_file_name">json.log</string>
     <!-- fat test save log custom path-->
-    <string name="fat_save_log_custom_path">MeiG/Fat/</string>
+    <string name="fat_save_log_custom_path">MeiG/Fat</string>
     <!-- fat test save log is user custom-->
     <bool name="fat_save_log_is_user_custom">false</bool>
     <!-- fat test time default One minute -->

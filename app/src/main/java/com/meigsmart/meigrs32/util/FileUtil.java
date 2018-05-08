@@ -155,13 +155,23 @@ public class FileUtil {
      * @return
      */
     public static File createFolder(String filePath){
-        File file = new File(filePath+"/HP");
+        File file = new File(filePath);
         if (file.exists()){
             return file;
         }else{
             file.mkdir();
             return file;
         }
+    }
+
+    public static File mkDir(File file) {
+        if (file.getParentFile().exists()) {
+            file.mkdir();
+        } else {
+            mkDir(file.getParentFile());
+            file.mkdir();
+        }
+        return file;
     }
 
 

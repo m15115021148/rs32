@@ -112,7 +112,8 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
         if (isCustomPath){
             if (!TextUtils.isEmpty(mCustomPath) && !TextUtils.isEmpty(mCustomFileName)){
                 File file = FileUtil.createRootDirectory(mCustomPath);
-                File f = new File(file.getPath(),mCustomFileName);
+                File file1 = FileUtil.mkDir(file);
+                File f = new File(file1.getPath(),mCustomFileName);
                 if (f.exists()){
                     return f.getPath();
                 }else{

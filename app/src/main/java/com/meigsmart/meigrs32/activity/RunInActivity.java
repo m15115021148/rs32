@@ -113,7 +113,8 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
 
     private String initPath(String path, String fileName, String result){
         if (!TextUtils.isEmpty(path) && !TextUtils.isEmpty(fileName)){
-            File file = FileUtil.createRootDirectory(path);
+            File f = FileUtil.createRootDirectory(path);
+            File file = FileUtil.mkDir(f);
             return FileUtil.writeFile(file,fileName,result);
         }
         return "";

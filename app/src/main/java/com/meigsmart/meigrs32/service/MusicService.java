@@ -25,16 +25,7 @@ public class MusicService extends Service {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.reset();
-        if (isCustom){
-            try {
-                mediaPlayer.setDataSource(customFilePath);
-            } catch (IOException e) {
-                stop();
-                e.printStackTrace();
-            }
-        }else{
-            setDefaultDataSource();
-        }
+        setDataSource(isCustom,customFilePath);
         mediaPlayer.setLooping(false);
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -54,12 +45,17 @@ public class MusicService extends Service {
         return MusicService.this;
     }
 
-    private void setDefaultDataSource(){
+    private void setDataSource(boolean isCustom,String path){
         try {
-            AssetFileDescriptor afd = this.getAssets().openFd("music.mp3");
-            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            if (isCustom){
+                mediaPlayer.setDataSource(path);
+            }else {
+                AssetFileDescriptor afd = this.getAssets().openFd("music.mp3");
+                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            }
             mediaPlayer.prepare();
         } catch (IOException e) {
+            stop();
             e.printStackTrace();
         }
     }

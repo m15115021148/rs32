@@ -1,5 +1,6 @@
 package com.meigsmart.meigrs32.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ public class PCBAActivity extends BaseActivity implements View.OnClickListener ,
     public String[] mPCBAList;
     @BindArray(R.array.pcba_list_config)
     public int[] mPCBAListConfig;
+    private int currPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +63,18 @@ public class PCBAActivity extends BaseActivity implements View.OnClickListener ,
 
     @Override
     public void onItemClick(int position) {
+        currPosition = position;
         startActivity(mAdapter.getData().get(position));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1111){
+            if (data!=null){
+                int results = data.getIntExtra("results",0);
+                mAdapter.getData().get(currPosition).setType(results);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }
