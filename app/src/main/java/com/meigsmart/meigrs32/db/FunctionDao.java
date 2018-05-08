@@ -21,6 +21,7 @@ public class FunctionDao {
     public static String FATHER_NAME = "fatherName";
     public static String SUB_NAME = "subclassName";
     public static String RESULTS = "results";
+    public static String REASON = "reason";
 
     public FunctionDao(Context context) {
         locationHelper = new DBOpenHelper(context);
@@ -38,6 +39,7 @@ public class FunctionDao {
         values.put(FATHER_NAME, bean.getFatherName());
         values.put(SUB_NAME, bean.getSubclassName());
         values.put(RESULTS, bean.getResults());
+        values.put(REASON,bean.getReason());
 
         locationDb.insert(TABLE, null, values);
         locationDb.close();
@@ -66,11 +68,11 @@ public class FunctionDao {
     /**
      * 更新数据
      */
-    public void update(String fatherName, String subName, int result) {
+    public void update(String fatherName, String subName, int result,String reason) {
         locationDb = locationHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
-
         values.put(RESULTS, result);
+        values.put(REASON,reason);
         if (locationDb.isOpen())
             locationDb.update(TABLE, values, FATHER_NAME + "=? and " + SUB_NAME + "=? ", new String[]{fatherName, subName});
         locationDb.close();
@@ -93,11 +95,13 @@ public class FunctionDao {
             String fName = cursor.getString(cursor.getColumnIndex(FATHER_NAME));
             String sName = cursor.getString(cursor.getColumnIndex(SUB_NAME));
             int result = cursor.getInt(cursor.getColumnIndex(RESULTS));
+            String reason = cursor.getString(cursor.getColumnIndex(REASON));
 
             bean.setId(id);
             bean.setFatherName(fName);
             bean.setSubclassName(sName);
             bean.setResults(result);
+            bean.setReason(reason);
 
         }
         cursor.close();
@@ -123,12 +127,14 @@ public class FunctionDao {
             String fName = cursor.getString(cursor.getColumnIndex(FATHER_NAME));
             String sName = cursor.getString(cursor.getColumnIndex(SUB_NAME));
             int result = cursor.getInt(cursor.getColumnIndex(RESULTS));
+            String reason = cursor.getString(cursor.getColumnIndex(REASON));
 
             FunctionBean bean = new FunctionBean();
             bean.setId(id);
             bean.setFatherName(fName);
             bean.setSubclassName(sName);
             bean.setResults(result);
+            bean.setReason(reason);
 
             dataList.add(bean);
         }
@@ -154,12 +160,14 @@ public class FunctionDao {
             String fName = cursor.getString(cursor.getColumnIndex(FATHER_NAME));
             String sName = cursor.getString(cursor.getColumnIndex(SUB_NAME));
             int result = cursor.getInt(cursor.getColumnIndex(RESULTS));
+            String reason = cursor.getString(cursor.getColumnIndex(REASON));
 
             FunctionBean bean = new FunctionBean();
             bean.setId(id);
             bean.setFatherName(fName);
             bean.setSubclassName(sName);
             bean.setResults(result);
+            bean.setReason(reason);
 
             dataList.add(bean);
         }

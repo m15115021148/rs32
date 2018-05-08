@@ -11,13 +11,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.adapter.CheckListAdapter;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.db.FunctionBean;
 import com.meigsmart.meigrs32.log.LogUtil;
+import com.meigsmart.meigrs32.model.ResultModel;
+import com.meigsmart.meigrs32.util.FileUtil;
 import com.meigsmart.meigrs32.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +69,11 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
         mRoundsNumber = getResources().getInteger(R.integer.run_in_test_rounds_number);
         isCustomPath = getResources().getBoolean(R.bool.run_in_save_log_is_user_custom);
         mCustomPath = getResources().getString(R.string.run_in_save_log_custom_path);
+        LogUtil.d("mDefaultPath:" + mDefaultPath +
+                " mFileName:" + mFileName+
+                " mRoundsNumber:" + mRoundsNumber+
+                " isCustomPath:"+isCustomPath+
+                " mCustomPath:"+mCustomPath);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CheckListAdapter(this);
@@ -95,17 +104,39 @@ public class RunInActivity extends BaseActivity implements View.OnClickListener 
                     break;
                 case 1002://test finish
                     ToastUtil.showBottomShort(getResources().getString(R.string.run_in_test_finish));
+                    initPath(isCustomPath?mCustomPath:mDefaultPath,mFileName,createJsonResult());
+                    mContext.finish();
                     break;
             }
         }
     };
 
-    private void initDefaultPath(){
-
+    private String initPath(String path, String fileName, String result){
+        if (!TextUtils.isEmpty(path) && !TextUtils.isEmpty(fileName)){
+            File file = FileUtil.createRootDirectory(path);
+            return FileUtil.writeFile(file,fileName,result);
+        }
+        return "";
     }
 
-    private void initCustomPath(){
-
+    private String createJsonResult(){
+        List<FunctionBean> list = getFatherData(super.mName);
+        List<ResultModel> resultList = new ArrayList<>();
+        for (FunctionBean bean:list){
+            ResultModel model = new ResultModel();
+            if (bean.getResults() == 0){
+                model.setResult(Const.RESULT_NOTEST);
+            } else if (bean.getResults() == 1){
+                model.setResult(Const.RESULT_FAILURE);
+            } else if (bean.getResults() == 2){
+                model.setResult(Const.RESULT_SUCCESS);
+            }
+            model.setFatherName(bean.getFatherName());
+            model.setSubName(bean.getSubclassName());
+            model.setReason(bean.getReason());
+            resultList.add(model);
+        }
+        return JSON.toJSONString(resultList);
     }
 
     @Override

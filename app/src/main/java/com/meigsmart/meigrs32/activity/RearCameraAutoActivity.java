@@ -171,11 +171,14 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
                     if (isCanOpen){
                         deInit(SUCCESS);
                     }else {
-                        deInit(FAILURE);
+                        deInit(FAILURE,"camera is not open");
                     }
                     break;
                 case 1002:
-                    deInit(FAILURE);
+                    deInit(FAILURE,Const.RESULT_UNKNOWN);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -193,6 +196,7 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
         mHandler.removeCallbacks(mRun);
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
+        mHandler.removeMessages(9999);
     }
 
     @Override
@@ -256,9 +260,24 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     private Camera.PictureCallback picCallBack = new Camera.PictureCallback() {
@@ -284,7 +303,7 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mHandler.sendEmptyMessageDelayed(1002,2000);
+                sendErrorMsg(mHandler,e.getMessage());
             }
         }
     };
@@ -325,7 +344,7 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
             LogUtil.d("startCamera failed");
             e.printStackTrace();
             mCamera = null;
-            mHandler.sendEmptyMessageDelayed(1002,2000);
+            sendErrorMsgDelayed(mHandler,e.getMessage());
         }
         if (mCamera != null) {
             setCameraDisplayOrientation(CameraId, mCamera);
@@ -353,7 +372,7 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
             } catch (Exception e) {
                 mCamera.release();
                 mCamera = null;
-                mHandler.sendEmptyMessageDelayed(1002,2000);
+                sendErrorMsgDelayed(mHandler,e.getMessage());
             }
         }
     }

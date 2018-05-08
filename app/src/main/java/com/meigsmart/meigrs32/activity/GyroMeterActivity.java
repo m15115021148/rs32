@@ -89,8 +89,7 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         gyroSensor=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         if(gyroSensor==null){
-            ToastUtil.showBottomShort("gyro-meter sensor is no supper");
-            mHandler.sendEmptyMessage(1003);
+            sendErrorMsg(mHandler,"gyro-meter sensor is no supper");
             return;
         }else{
             sensorManager.registerListener(sensoreventlistener, gyroSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -114,13 +113,16 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
                     deInit(SUCCESS);
                     break;
                 case 1003:
-                    deInit(FAILURE);
+                    deInit(FAILURE,Const.RESULT_UNKNOWN);
                     break;
                 case 2:
                     float[] f = (float[]) msg.obj;
                     mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[0])));
                     mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[1])));
                     mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[2])));
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -155,6 +157,7 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         mHandler.removeMessages(1002);
         mHandler.removeMessages(1003);
         mHandler.removeMessages(2);
+        mHandler.removeMessages(9999);
     }
 
     @Override
@@ -174,8 +177,23 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }

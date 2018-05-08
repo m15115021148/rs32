@@ -8,6 +8,15 @@ public class FunctionBean {
     private String fatherName;
     private String subclassName;
     private int results;//0 unTest ; 1  failure ; 2 success
+    private String reason;//test reason
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
     public int getId() {
         return id;

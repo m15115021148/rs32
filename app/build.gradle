@@ -45,4 +45,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     compileOnly files('libs/classes.jar')
+    implementation 'com.alibaba:fastjson:1.2.47'
 }

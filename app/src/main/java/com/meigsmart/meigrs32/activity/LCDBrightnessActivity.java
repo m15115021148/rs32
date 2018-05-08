@@ -90,7 +90,14 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            deInit(SUCCESS);
+            switch (msg.what){
+                case 1001:
+                    deInit(SUCCESS);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
+                    break;
+            }
         }
     };
 
@@ -111,9 +118,24 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     @Override
@@ -141,6 +163,8 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
     protected void onDestroy() {
         mHandler.removeCallbacks(mRun);
         mHandler.removeCallbacks(this);
+        mHandler.removeMessages(1001);
+        mHandler.removeMessages(9999);
         pm.setBacklightBrightness(background);
         Settings.System.putInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, background);
         super.onDestroy();

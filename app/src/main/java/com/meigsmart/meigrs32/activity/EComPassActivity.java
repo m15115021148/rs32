@@ -88,7 +88,7 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
                     mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
                     Sensor defaultSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
                     if (defaultSensor==null){
-                        mHandler.sendEmptyMessage(1003);
+                        sendErrorMsg(mHandler,"defaultSensor is null");
                         return;
                     }
                     mSensorManager.registerListener(mSensorEventListener,defaultSensor , SensorManager.SENSOR_DELAY_GAME);
@@ -97,7 +97,10 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
                     deInit(SUCCESS);
                     break;
                 case 1003:
-                    deInit(FAILURE);
+                    deInit(FAILURE,Const.RESULT_UNKNOWN);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -132,6 +135,15 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     protected void onDestroy() {
         mHandler.removeCallbacks(mRun);
@@ -139,11 +151,18 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
         mHandler.removeMessages(1003);
+        mHandler.removeMessages(9999);
         super.onDestroy();
     }
 
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }

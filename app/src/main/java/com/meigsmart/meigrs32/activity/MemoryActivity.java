@@ -165,8 +165,8 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                 case 1111:
                     deInit(SUCCESS);
                     break;
-                case 1112:
-                    deInit(FAILURE);
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
                 default:
                     break;
@@ -218,10 +218,8 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         mHandler.removeMessages(1003);
         mHandler.removeMessages(1004);
         mHandler.removeMessages(1111);
-        mHandler.removeMessages(1112);
+        mHandler.removeMessages(9999);
         mHandler.removeMessages(1113);
-//        if (mReadThread!=null)mReadThread.interrupt();
-//        if (mWriteThread!=null)mWriteThread.interrupt();
     }
 
     private void deInit(int results){
@@ -233,9 +231,24 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     public void readFromFile(String path) {
@@ -259,7 +272,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             fis.close();
         } catch (Exception e) {
             LogUtil.e(e.getMessage());
-            mHandler.sendEmptyMessage(1112);
+            sendErrorMsg(mHandler,e.getMessage());
         }
     }
 
@@ -306,7 +319,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             out.close();
         } catch (Exception e) {
             LogUtil.e(e.getMessage());
-            mHandler.sendEmptyMessage(1112);
+            sendErrorMsg(mHandler,e.getMessage());
         }
     }
 
@@ -334,7 +347,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             is.close();
         } catch (Exception e) {
             LogUtil.e(e.getMessage());
-            mHandler.sendEmptyMessage(1112);
+            sendErrorMsg(mHandler,e.getMessage());
         }
     }
 

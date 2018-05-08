@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -110,6 +112,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void sendErrorMsg(Handler handler,String error){
+        Message msg = handler.obtainMessage();
+        msg.what = 9999;
+        msg.obj = error;
+        handler.sendMessage(msg);
+    }
+
+    protected void sendErrorMsgDelayed(Handler handler,String error){
+        Message msg = handler.obtainMessage();
+        msg.what = 9999;
+        msg.obj = error;
+        handler.sendMessageDelayed(msg,2000);
+    }
+
     protected void addData(String fatherName,String subName){
         FunctionBean sb = getSubData(fatherName, subName);
         if (sb!=null && !TextUtils.isEmpty(sb.getSubclassName()) && !TextUtils.isEmpty(sb.getFatherName()))return;
@@ -118,12 +134,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         bean.setFatherName(fatherName);
         bean.setSubclassName(subName);
         bean.setResults(0);
+        bean.setReason("NOTEST");
 
         MyApplication.getInstance().mDb.addData(bean);
     }
 
     protected void updateData(String fatherName, String subName, int result){
-        MyApplication.getInstance().mDb.update(fatherName,subName,result);
+        MyApplication.getInstance().mDb.update(fatherName,subName,result,"");
+    }
+
+    protected void updateData(String fatherName, String subName, int result,String reason){
+        MyApplication.getInstance().mDb.update(fatherName,subName,result,reason);
     }
 
     protected FunctionBean getSubData(String fatherName, String subName){

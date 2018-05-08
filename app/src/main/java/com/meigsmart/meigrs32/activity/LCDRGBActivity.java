@@ -69,12 +69,18 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (mConfigResult>=1){
-                deInit(SUCCESS);
-            }else {
-                deInit(FAILURE);
+            switch (msg.what){
+                case 1001:
+                    if (mConfigResult>=1){
+                        deInit(SUCCESS);
+                    }else {
+                        deInit(FAILURE,Const.RESULT_UNKNOWN);
+                    }
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
+                    break;
             }
-
         }
     };
 
@@ -83,6 +89,7 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         super.onDestroy();
         mHandler.removeCallbacks(this);
         mHandler.removeMessages(1001);
+        mHandler.removeMessages(9999);
     }
 
     @Override
@@ -112,9 +119,24 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     @Override

@@ -91,7 +91,14 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            deInit(SUCCESS);
+            switch (msg.what){
+                case 1001:
+                    deInit(SUCCESS);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
+                    break;
+            }
         }
     };
 
@@ -119,10 +126,10 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
             LogUtil.e(e.getMessage());
-            deInit(FAILURE);
+            sendErrorMsg(mHandler,e.getMessage());
         } catch (IOException e) {
             LogUtil.e(e.getMessage());
-            deInit(FAILURE);
+            sendErrorMsg(mHandler,e.getMessage());
         }
     }
 
@@ -146,9 +153,24 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     @Override

@@ -94,11 +94,14 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
                     if (isPass){
                         deInit(SUCCESS);
                     }else {
-                        deInit(FAILURE);
+                        deInit(FAILURE,Const.RESULT_UNKNOWN);
                     }
                     break;
                 case 1002:
                     deInit(FAILURE);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -116,8 +119,7 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
         if (mDefaultAdapter!=null){
             mDefaultAdapter.enableForegroundDispatch(this,pendingIntent,null,null);//打开前台发布系统，使页面优于其它nfc处理
         }else{
-            LogUtil.e("mDefaultAdapter is null");
-            mHandler.sendEmptyMessageDelayed(1002,2000);
+            sendErrorMsgDelayed(mHandler,"mDefaultAdapter is null");
         }
     }
 
@@ -159,8 +161,23 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }

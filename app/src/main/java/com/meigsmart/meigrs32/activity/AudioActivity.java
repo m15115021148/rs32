@@ -117,11 +117,11 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
                     return f.getPath();
                 }else{
                     ToastUtil.showBottomShort("the file is not exists");
-                    mHandler.sendEmptyMessageAtTime(1002,2000);
+                    sendErrorMsgDelayed(mHandler,"the file is not exists");
                 }
             }else {
                 ToastUtil.showBottomShort("the file path is not null");
-                mHandler.sendEmptyMessageAtTime(1002,2000);
+                sendErrorMsgDelayed(mHandler,"the file path is not null");
             }
         }
         return null;
@@ -137,7 +137,10 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
                     deInit(SUCCESS);
                     break;
                 case 1002:
-                    deInit(FAILURE);
+                    deInit(FAILURE,Const.RESULT_UNKNOWN);
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -152,6 +155,7 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
         mHandler.removeCallbacks(mRun);
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
+        mHandler.removeMessages(9999);
         super.onDestroy();
     }
 
@@ -176,7 +180,7 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
     private void bindServiceConnection() {
         intentMusic = new Intent(this, MusicService.class);
         startService(intentMusic);
-        bindService(intentMusic, serviceConnection, this.BIND_AUTO_CREATE);
+        bindService(intentMusic, serviceConnection, BIND_AUTO_CREATE);
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -202,9 +206,24 @@ public class AudioActivity extends BaseActivity implements View.OnClickListener 
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     @Override

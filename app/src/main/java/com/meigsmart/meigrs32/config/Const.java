@@ -22,6 +22,10 @@ import com.meigsmart.meigrs32.activity.VibratorActivity;
  */
 public class Const {
     public static boolean isCanBackKey = true;
+    public static final String RESULT_SUCCESS = "Success";
+    public static final String RESULT_FAILURE = "Failure";
+    public static final String RESULT_NOTEST = "NOTEST";
+    public static final String RESULT_UNKNOWN = "unknown";
 
     public static Class[] functionList = {
             PCBAActivity.class,

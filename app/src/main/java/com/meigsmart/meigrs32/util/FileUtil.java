@@ -6,6 +6,8 @@ import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.util.Log;
 
+import com.meigsmart.meigrs32.log.LogUtil;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -164,7 +166,7 @@ public class FileUtil {
 
 
     /**
-     * 保存写入的文件到sd卡目录下
+     * 保存写入的文件
      *
      * @param fileName
      * @param txt
@@ -172,7 +174,7 @@ public class FileUtil {
     public static String writeFile(File path, String fileName, String txt) {
         try {
             File file = new File(path, fileName);
-            Log.e("result", "create path:" + file.getPath());
+            LogUtil.d("write file path:" + file.getPath());
             FileOutputStream fos = new FileOutputStream(file, false);//false每次写入都会替换内容
             byte[] b = txt.trim().getBytes();
             fos.write(b);
@@ -213,7 +215,7 @@ public class FileUtil {
                 bos.write(b, 0, b.length);
             }
             result = new String(bos.toByteArray());
-            Log.e("result", "read data:" + result);
+            LogUtil.d("read file data:" + result);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

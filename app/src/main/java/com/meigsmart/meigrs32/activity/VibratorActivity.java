@@ -100,6 +100,9 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
                 case 1003:
                     deInit(SUCCESS);
                     break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
+                    break;
             }
         }
     };
@@ -111,6 +114,7 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
         mHandler.removeMessages(1003);
+        mHandler.removeMessages(9999);
         mVibrator.cancel();
     }
 
@@ -131,9 +135,24 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 
     public void onStop(View view) {

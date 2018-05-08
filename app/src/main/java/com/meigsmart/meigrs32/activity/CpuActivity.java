@@ -76,8 +76,8 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacks(mRun);
         stopCpu();
+        mHandler.removeCallbacks(mRun);
     }
 
     @SuppressLint("HandlerLeak")
@@ -96,8 +96,11 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
                     if (count>=10){
                         deInit(SUCCESS);
                     }else{
-                        deInit(FAILURE);
+                        deInit(FAILURE,"CPU usage is less than 70%");
                     }
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -155,10 +158,12 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
                 return (float) (Long.valueOf(100L * (l4 - l2) / (l4 + l3 - (l2 + l1))).longValue());
             } catch (Exception e) {
                 e.printStackTrace();
+                sendErrorMsg(mHandler,e.getMessage());
             }
             return 0.0F;
         } catch (Exception localException1) {
             localException1.printStackTrace();
+            sendErrorMsg(mHandler,localException1.getMessage());
         }
         return 0.0F;
     }
@@ -186,6 +191,17 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
     }
 
     private void deInit(int results){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
         Intent intent = new Intent();
         intent.putExtra("results",results);
         setResult(1111,intent);
@@ -194,7 +210,12 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
 
     @Override
     public void onResultListener(int result) {
-        updateData(mFatherName,super.mName,result);
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }

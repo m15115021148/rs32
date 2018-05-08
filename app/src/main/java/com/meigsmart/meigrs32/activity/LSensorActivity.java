@@ -66,8 +66,7 @@ public class LSensorActivity extends BaseActivity implements View.OnClickListene
         mSensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         LogUtil.w(mSensorLight.getName() + "  " + mSensorLight.getType() + " " + mSensorLight.toString());
         if (mSensorLight == null) {
-            LogUtil.e("LSensor is null!");
-            deInit(1);
+            sendErrorMsg(mHandler,"LSensor is null!");
             return;
         }
 
@@ -124,8 +123,11 @@ public class LSensorActivity extends BaseActivity implements View.OnClickListene
                     if (isMixValue && isMaxValue) {
                         deInit(SUCCESS);
                     } else {
-                        deInit(FAILURE);
+                        deInit(FAILURE,Const.RESULT_UNKNOWN);
                     }
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -165,8 +167,23 @@ public class LSensorActivity extends BaseActivity implements View.OnClickListene
         mContext.finish();
     }
 
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }

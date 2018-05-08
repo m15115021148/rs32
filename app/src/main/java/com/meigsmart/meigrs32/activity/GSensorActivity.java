@@ -120,7 +120,7 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
                     if (upok && downok && leftok && rightok){
                         deInit(SUCCESS);
                     }else {
-                        deInit(FAILURE);
+                        deInit(FAILURE,"no pass");
                     }
                     break;
                 case 1003:
@@ -128,6 +128,9 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
                     if (downok)mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
                     if (leftok)mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
                     if (rightok)mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+                    break;
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
                     break;
             }
         }
@@ -141,6 +144,7 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
         mHandler.removeMessages(1001);
         mHandler.removeMessages(1002);
         mHandler.removeMessages(1003);
+        mHandler.removeMessages(9999);
     }
 
     @Override
@@ -193,6 +197,15 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
     private void deInit(int results){
         if (mDialog.isShowing())mDialog.dismiss();
         updateData(mFatherName,super.mName,results);
+        Intent intent = new Intent();
+        intent.putExtra("results",results);
+        setResult(1111,intent);
+        mContext.finish();
+    }
+
+    private void deInit(int results,String reason){
+        if (mDialog.isShowing())mDialog.dismiss();
+        updateData(mFatherName,super.mName,results,reason);
         Intent intent = new Intent();
         intent.putExtra("results",results);
         setResult(1111,intent);
@@ -286,6 +299,12 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onResultListener(int result) {
-        deInit(result);
+        if (result == 0){
+            deInit(result,Const.RESULT_NOTEST);
+        }else if (result == 1){
+            deInit(result,Const.RESULT_UNKNOWN);
+        }else if (result == 2){
+            deInit(result);
+        }
     }
 }
