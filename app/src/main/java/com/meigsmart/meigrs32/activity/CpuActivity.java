@@ -94,9 +94,9 @@ public class CpuActivity extends BaseActivity implements View.OnClickListener,Pr
                     break;
                 case 1003:
                     if (count>=10){
-                        deInit(2);
+                        deInit(SUCCESS);
                     }else{
-                        deInit(1);
+                        deInit(FAILURE);
                     }
                     break;
             }

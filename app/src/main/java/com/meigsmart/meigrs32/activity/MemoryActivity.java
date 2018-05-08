@@ -163,10 +163,10 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                     init(FileUtil.getFileSize(new File(path))>0?path:"");
                     break;
                 case 1111:
-                    deInit(2);
+                    deInit(SUCCESS);
                     break;
                 case 1112:
-                    deInit(1);
+                    deInit(FAILURE);
                     break;
                 default:
                     break;
@@ -184,7 +184,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                 length = (int) file.length();
                 mProgress.setMax(length);//设置进度条最大值
             }else{
-                deInit(1);
+                mHandler.sendEmptyMessage(1112);
                 return;
             }
         }
@@ -259,13 +259,13 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             fis.close();
         } catch (Exception e) {
             LogUtil.e(e.getMessage());
-            deInit(1);
+            mHandler.sendEmptyMessage(1112);
         }
     }
 
     private void initWrite(final String msg){
         if (TextUtils.isEmpty(msg)){
-            deInit(1);
+            mHandler.sendEmptyMessage(1112);
             return;
         }
         progressValue = 0;
@@ -305,9 +305,8 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             is.close();
             out.close();
         } catch (Exception e) {
-            e.printStackTrace();
             LogUtil.e(e.getMessage());
-            deInit(1);
+            mHandler.sendEmptyMessage(1112);
         }
     }
 
@@ -335,7 +334,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
             is.close();
         } catch (Exception e) {
             LogUtil.e(e.getMessage());
-            deInit(1);
+            mHandler.sendEmptyMessage(1112);
         }
     }
 

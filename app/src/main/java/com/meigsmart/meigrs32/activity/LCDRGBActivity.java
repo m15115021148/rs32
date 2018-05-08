@@ -70,9 +70,9 @@ public class LCDRGBActivity extends BaseActivity implements View.OnClickListener
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (mConfigResult>=1){
-                deInit(2);
+                deInit(SUCCESS);
             }else {
-                deInit(1);
+                deInit(FAILURE);
             }
 
         }

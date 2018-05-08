@@ -122,9 +122,9 @@ public class LSensorActivity extends BaseActivity implements View.OnClickListene
                     break;
                 case 1002:
                     if (isMixValue && isMaxValue) {
-                        deInit(2);
+                        deInit(SUCCESS);
                     } else {
-                        deInit(1);
+                        deInit(FAILURE);
                     }
                     break;
             }

@@ -33,10 +33,15 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
     private String mFatherName = "";
     @BindViews({R.id.gyro_x,R.id.gyro_y,R.id.gyro_z})
     public List<TextView> mGyroList;
+    @BindView(R.id.flag)
+    public TextView mFlag;
 
     private SensorManager sensorManager;//管理器对象
-
     private Sensor gyroSensor;//传感器对象
+
+    private int mConfigResult;
+    private int mConfigTime;
+    private Runnable mRun;
 
     @Override
     protected int getLayoutId() {
@@ -51,16 +56,29 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.run_in_gyro_meter);
 
+        mConfigResult = getResources().getInteger(R.integer.gyro_meter_default_config_standard_result);
+        mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
+        mConfigTime = mConfigTime * 60;
+        LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
+
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
 
-        mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
-        mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
-        mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+        mHandler.sendEmptyMessageDelayed(1001,2000);
 
-        mHandler.sendEmptyMessageDelayed(1,2000);
+        mRun = new Runnable() {
+            @Override
+            public void run() {
+                mConfigTime--;
+                if (mConfigTime == 0) {
+                    mHandler.sendEmptyMessage(1002);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+        mRun.run();
 
     }
 
@@ -72,7 +90,7 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         gyroSensor=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         if(gyroSensor==null){
             ToastUtil.showBottomShort("gyro-meter sensor is no supper");
-            deInit(1);
+            mHandler.sendEmptyMessage(1003);
             return;
         }else{
             sensorManager.registerListener(sensoreventlistener, gyroSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -85,8 +103,18 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case 1:
+                case 1001:
+                    mFlag.setVisibility(View.GONE);
+                    mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
                     init();
+                    break;
+                case 1002:
+                    deInit(SUCCESS);
+                    break;
+                case 1003:
+                    deInit(FAILURE);
                     break;
                 case 2:
                     float[] f = (float[]) msg.obj;
@@ -121,8 +149,11 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mHandler.removeCallbacks(mRun);
         if (sensorManager!=null)sensorManager.unregisterListener(sensoreventlistener);
-        mHandler.removeMessages(1);
+        mHandler.removeMessages(1001);
+        mHandler.removeMessages(1002);
+        mHandler.removeMessages(1003);
         mHandler.removeMessages(2);
     }
 

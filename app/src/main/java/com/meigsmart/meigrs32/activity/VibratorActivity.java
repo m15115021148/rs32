@@ -98,7 +98,7 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
                             }, 0);
                     break;
                 case 1003:
-                    deInit(2);
+                    deInit(SUCCESS);
                     break;
             }
         }
