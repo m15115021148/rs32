@@ -22,9 +22,9 @@
     <integer name="pcba_default_config_audio_receive">1</integer>
     <integer name="pcba_default_config_audio_record">1</integer>
     <integer name="pcba_default_config_wifi">0</integer>
-    <integer name="pcba_default_config_gps">1</integer>
+    <integer name="pcba_default_config_gps">0</integer>
     <integer name="pcba_default_config_vibrator">1</integer>
-    <integer name="pcba_default_config_power">1</integer>
+    <integer name="pcba_default_config_power">0</integer>
 
     <!--run-in default config -->
     <integer name="run_in_default_config_cpu">1</integer>

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.application.MyApplication;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
@@ -98,7 +99,11 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
                             }, 0);
                     break;
                 case 1003:
-                    deInit(SUCCESS);
+                    if (MyApplication.NAME.equals(mFatherName)){
+                        deInit(SUCCESS);
+                    }else {
+                        mConfigTime = 60;
+                    }
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

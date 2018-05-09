@@ -31,6 +31,14 @@
     <string name="takephoto">TakePhoto</string>
     <string name="start_tag">Test will run in 2 seconds start</string>
     <string name="run_in_test_finish">Run-In Test has been completed</string>
+    <string name="earphone_play">PLAY VIDEO</string>
+    <string name="earphone_stop">STOP VIDEO</string>
+    <string name="earphone_start_record">START RECORD</string>
+    <string name="earphone_stop_record">STOP RECORD</string>
+    <string name="earphone_tag">Please insert earphone</string>
+    <string name="earphone_tag1">Please check if the earphone icon appears</string>
+    <string name="earphone_pulled_out">EarPhone have been pulled out</string>
+    <string name="earphone_inserted">EarPhone inserted</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

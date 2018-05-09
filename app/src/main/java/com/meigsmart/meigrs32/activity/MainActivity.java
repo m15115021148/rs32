@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.adapter.FunctionListAdapter;
+import com.meigsmart.meigrs32.application.MyApplication;
 import com.meigsmart.meigrs32.config.Const;
 
 import butterknife.BindArray;
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity implements FunctionListAdapter.On
         mAdapter = new FunctionListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setData(getData(mFunctionList,mFunctionListConfig,Const.functionList,null));
+        MyApplication.NAME = mFunctionList[1];
     }
 
     @Override

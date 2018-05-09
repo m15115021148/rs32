@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pop_txt_bg"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    tools:context=".activity.EarPhoneActivity">
+
+    <include
+        layout="@layout/include_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.meigsmart.meigrs32.view.VolumeView
+        android:layout_marginTop="@dimen/m_left"
+        android:id="@+id/volumeView"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/vumeter" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_marginTop="100dp"
+            android:onClick="onPlay"
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/earphone_play"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+        <Button
+            android:layout_marginTop="@dimen/m_left"
+            android:layout_below="@+id/play"
+            android:onClick="onRecord"
+            android:id="@+id/record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/earphone_start_record"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="60dp"
+            android:text="@string/earphone_tag"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/m_left"
+            android:text="@string/earphone_tag1"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -13,6 +13,7 @@ import com.meigsmart.meigrs32.db.FunctionDao;
 public class MyApplication extends Application {
     private static MyApplication instance;// application对象
     public FunctionDao mDb;
+    public static String NAME = "";
 
     @Override
     public void onCreate() {

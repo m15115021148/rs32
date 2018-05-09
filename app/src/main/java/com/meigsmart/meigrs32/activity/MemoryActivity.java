@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.application.MyApplication;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.util.FileUtil;
@@ -164,7 +165,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                     init(isCustomPath?path:"");
                     break;
                 case 1111:
-                    deInit(SUCCESS);
+                    if (MyApplication.NAME.equals(mFatherName))deInit(SUCCESS);
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());
