@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.application.MyApplication;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
@@ -93,7 +94,7 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
             super.handleMessage(msg);
             switch (msg.what){
                 case 1001:
-                    deInit(SUCCESS);
+                    if (MyApplication.NAME.equals(mFatherName))deInit(SUCCESS);
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

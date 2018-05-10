@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private MyBroaderEsc receiver;//广播
     private Unbinder butterKnife;//取消绑定
     protected boolean startBlockKeys = true;
+    protected boolean isStartTest = false;//start test
     private PowerManager.WakeLock wakeLock = null;
     protected PromptDialog mDialog;
     protected String mName = "";

@@ -22,34 +22,55 @@
 
     <!--pcba list-->
     <string-array name="pcba_list">
-        <item>@string/pcba_memory</item>
+        <item>@string/pcba_memory_ram</item>
+        <item>@string/pcba_memory_emmc</item>
         <item>@string/pcba_battery_charge</item>
         <item>@string/pcba_audio_earphone</item>
         <item>@string/pcba_audio_speaker</item>
         <item>@string/pcba_audio_receive</item>
         <item>@string/pcba_audio_record</item>
         <item>@string/pcba_wifi</item>
+        <item>@string/pcba_bt</item>
         <item>@string/pcba_gps</item>
         <item>@string/pcba_vibrator</item>
         <item>@string/pcba_power</item>
+        <item>@string/pcba_rear_camera</item>
+        <item>@string/pcba_camera</item>
+        <item>@string/pcba_lcd_brightness</item>
+        <item>@string/pcba_led</item>
+        <item>@string/pcba_g_sensor</item>
+        <item>@string/pcba_e_compass</item>
+        <item>@string/pcba_l_sensor</item>
+        <item>@string/pcba_gyro_meter</item>
     </string-array>
     <integer-array name="pcba_list_config">
-        <item>@integer/pcba_default_config_memory</item>
+        <item>@integer/pcba_default_config_memory_ram</item>
+        <item>@integer/pcba_default_config_memory_emmc</item>
         <item>@integer/pcba_default_config_battery_charge</item>
         <item>@integer/pcba_default_config_audio_earphone</item>
         <item>@integer/pcba_default_config_audio_speaker</item>
         <item>@integer/pcba_default_config_audio_receive</item>
         <item>@integer/pcba_default_config_audio_record</item>
         <item>@integer/pcba_default_config_wifi</item>
+        <item>@integer/pcba_default_config_bt</item>
         <item>@integer/pcba_default_config_gps</item>
         <item>@integer/pcba_default_config_vibrator</item>
         <item>@integer/pcba_default_config_power</item>
+        <item>@integer/pcba_default_config_rear_camera</item>
+        <item>@integer/pcba_default_config_camera</item>
+        <item>@integer/pcba_default_config_lcd_brightness</item>
+        <item>@integer/pcba_default_config_led</item>
+        <item>@integer/pcba_default_config_g_sensor</item>
+        <item>@integer/pcba_default_config_e_compass</item>
+        <item>@integer/pcba_default_config_l_sensor</item>
+        <item>@integer/pcba_default_config_gyro_meter</item>
     </integer-array>
 
     <!--run in list-->
     <string-array name="run_in_list">
         <item>@string/run_in_cpu</item>
-        <item>@string/run_in_memory</item>
+        <item>@string/run_in_memory_ram</item>
+        <item>@string/run_in_memory_emmc</item>
         <item>@string/run_in_battery</item>
         <item>@string/run_in_lcd_rgb</item>
         <item>@string/run_in_lcd_brightness</item>
@@ -65,7 +86,8 @@
     </string-array>
     <integer-array name="run_in_list_config">
         <item>@integer/run_in_default_config_cpu</item>
-        <item>@integer/run_in_default_config_memory</item>
+        <item>@integer/run_in_default_config_memory_ram</item>
+        <item>@integer/run_in_default_config_memory_emmc</item>
         <item>@integer/run_in_default_config_battery</item>
         <item>@integer/run_in_default_config_lcd_rgb</item>
         <item>@integer/run_in_default_config_lcd_brightness</item>

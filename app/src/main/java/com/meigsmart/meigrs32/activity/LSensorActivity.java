@@ -77,7 +77,7 @@ public class LSensorActivity extends BaseActivity implements View.OnClickListene
                 if (mConfigTime == 0) {
                     mHandler.sendEmptyMessage(1002);
                 }
-                if (isMixValue && isMaxValue) deInit(2);
+                if (isMixValue && isMaxValue) deInit(SUCCESS);
                 mHandler.postDelayed(this, 1000);
             }
         };

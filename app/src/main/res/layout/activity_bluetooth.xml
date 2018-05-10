@@ -6,7 +6,7 @@
     android:background="@color/pop_txt_bg"
     android:orientation="vertical"
     android:overScrollMode="never"
-    tools:context=".activity.BatteryChargeActivity">
+    tools:context=".activity.BluetoothActivity">
 
     <include
         layout="@layout/include_title"
@@ -22,41 +22,52 @@
         android:textColor="@color/black_dan"
         android:textSize="@dimen/fontSize" />
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/battery"
+            android:id="@+id/btSn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black_dan"
             android:textSize="@dimen/fontSize" />
 
         <TextView
-            android:id="@+id/secondBattery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/battery"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/m_left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/bluetooth_list"
             android:textColor="@color/black_dan"
             android:textSize="@dimen/fontSize" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
 
         <TextView
             android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/m_left"
-            android:text="@string/battery_charge_tag"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text="@string/bluetooth_scan"
             android:textColor="@color/black_dan"
-            android:textSize="@dimen/fontSize" />
+            android:textSize="@dimen/fontSize"
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

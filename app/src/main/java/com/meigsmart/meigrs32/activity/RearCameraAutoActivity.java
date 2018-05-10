@@ -111,6 +111,13 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName, super.mName);
+        LogUtil.d(mName);
+
+        if (super.mName.equals(getResources().getString(R.string.pcba_rear_camera))){
+            mCameraId = 1;
+        } else if (super.mName.equals(getResources().getString(R.string.pcba_camera))){
+            mCameraId = 0;
+        }
 
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(new SurfaceHolder.Callback() {
@@ -138,7 +145,6 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
         if (!isCameraFrontEnable(Camera.getNumberOfCameras())) {
             switchButton.setVisibility(View.GONE);
         } else {
-            mCameraId = 1;
             switchButton.setEnabled(false);
         }
         takepicture.setOnClickListener(this);

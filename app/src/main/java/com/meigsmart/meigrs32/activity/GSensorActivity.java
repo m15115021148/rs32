@@ -128,6 +128,10 @@ public class GSensorActivity extends BaseActivity implements View.OnClickListene
                     if (downok)mTextViewList.get(1).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_down)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
                     if (leftok)mTextViewList.get(2).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_left)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
                     if (rightok)mTextViewList.get(3).setText(Html.fromHtml(getResources().getString(R.string.g_sensor_right)+"&nbsp;"+"<font color='#00FF00'>"+"Pass"+"</font>"));
+
+                    if (upok && downok && leftok && rightok){
+                        deInit(SUCCESS);
+                    }
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

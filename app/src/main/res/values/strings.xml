@@ -39,6 +39,13 @@
     <string name="earphone_tag1">Please check if the earphone icon appears</string>
     <string name="earphone_pulled_out">EarPhone have been pulled out</string>
     <string name="earphone_inserted">EarPhone inserted</string>
+    <string name="battery_charge_tag">Please do not keep charging</string>
+    <string name="battery_charge_is">Battery charge is:</string>
+    <string name="battery_second_voltage">Second battery voltage:</string>
+    <string name="bluetooth_list">Bluetooth Lists</string>
+    <string name="bluetooth_address">Bluetooth MAC Address: </string>
+    <string name="bluetooth_no_device">No device was scanned</string>
+    <string name="bluetooth_scan">Rescan</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>
@@ -57,7 +64,8 @@
     <string name="function_other">Other Test</string>
 
     <!--PCBA-->
-    <string name="pcba_memory">Memory Test</string>
+    <string name="pcba_memory_ram">Memory RAM Test</string>
+    <string name="pcba_memory_emmc">Memory EMMC Test</string>
     <string name="pcba_battery_charge">Battery charge Test</string>
     <string name="pcba_audio">Audio function Test</string>
     <string name="pcba_audio_earphone">EarPhone Test</string>
@@ -65,13 +73,23 @@
     <string name="pcba_audio_receive">Receiver/Mic Test</string>
     <string name="pcba_audio_record">Record Test</string>
     <string name="pcba_wifi">Wifi Test</string>
+    <string name="pcba_bt">Bluetooth Test</string>
     <string name="pcba_gps">GPS Test</string>
     <string name="pcba_vibrator">Vibrator Test</string>
     <string name="pcba_power">Power Test</string>
+    <string name="pcba_rear_camera">Rear Camera Auto Test</string>
+    <string name="pcba_camera">Front Camera Test</string>
+    <string name="pcba_lcd_brightness">LCD Brightness Test</string>
+    <string name="pcba_led">LED Test</string>
+    <string name="pcba_g_sensor">G-Sensor Test</string>
+    <string name="pcba_e_compass">E-ComPass Test</string>
+    <string name="pcba_l_sensor">L-Sensor Test</string>
+    <string name="pcba_gyro_meter">Gyro-Meter Test</string>
 
     <!--run-in-->
     <string name="run_in_cpu">CPU Test</string>
-    <string name="run_in_memory">Memory Test</string>
+    <string name="run_in_memory_ram">Memory RAM Test</string>
+    <string name="run_in_memory_emmc">Memory EMMC Test</string>
     <string name="run_in_battery">Battery Test</string>
     <string name="run_in_lcd_rgb">LCD R/G/B Test</string>
     <string name="run_in_lcd_brightness">LCD Brightness Test</string>

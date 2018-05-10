@@ -110,6 +110,9 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
         @Override
         public void onSensorChanged(SensorEvent event) {
             mCompass.setVal(event.values[0]);
+            if (event.values[0]!=0){
+                mHandler.sendEmptyMessageDelayed(1002,5000);
+            }
         }
 
         @Override

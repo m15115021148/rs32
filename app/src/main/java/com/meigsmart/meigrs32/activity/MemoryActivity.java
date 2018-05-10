@@ -54,6 +54,8 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
     private String mCustomPath;
     private String mCustomFileName ;
 
+    private String firstPath = "";
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_memory;
@@ -65,7 +67,6 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
-        mTitle.setText(R.string.run_in_memory);
 
         mConfigResult = getResources().getInteger(R.integer.memory_default_config_standard_result);
         mConfigTime = getResources().getInteger(R.integer.run_in_test_default_time);
@@ -82,7 +83,15 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
+        mTitle.setText(super.mName);
         addData(mFatherName,super.mName);
+
+        if (super.mName.contains(getResources().getString(R.string.pcba_memory_ram))){
+            path = FileUtil.createInnerPath(mContext,mCustomFileName);
+        }else if (super.mName.contains(getResources().getString(R.string.pcba_memory_emmc))){
+            path = FileUtil.createSDPath(mCustomFileName);
+        }
+        LogUtil.d(super.mName+" write file path :"+path);
 
         mResult.setText(R.string.start_tag);
         mHandler.sendEmptyMessageDelayed(1113,2000);
@@ -148,21 +157,22 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                             File file1 = FileUtil.mkDir(file);
                             File f = new File(file1.getPath(),mCustomFileName);
                             if (f.exists() && FileUtil.getFileSize(f)<=500){
-                                path = f.getPath();
+                                firstPath = f.getPath();
                             }else{
                                 ToastUtil.showBottomShort("The content of the file is too large，preferably less than 500kb");
-                                mHandler.sendEmptyMessageAtTime(1112,2000);
+                                sendErrorMsgDelayed(mHandler,"The content of the file is too large，preferably less than 500kb");
                             }
                         }else {
                             ToastUtil.showBottomShort("the file path is not null");
-                            mHandler.sendEmptyMessageAtTime(1112,2000);
+                            sendErrorMsgDelayed(mHandler,"the file path is not null");
                         }
-                    }else{
-                        mCustomFileName = "memory.txt";
-                        path = FileUtil.createInnerPath(mContext,mCustomFileName);
                     }
+//                    else{
+//                        mCustomFileName = "memory.txt";
+//                        path = FileUtil.createInnerPath(mContext,mCustomFileName);
+//                    }
 
-                    init(isCustomPath?path:"");
+                    init(firstPath);
                     break;
                 case 1111:
                     if (MyApplication.NAME.equals(mFatherName))deInit(SUCCESS);
@@ -328,7 +338,7 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
     public void readFromResets() {
         try {
             int line;
-            InputStream is = this.getAssets().open(mCustomFileName);
+            InputStream is = this.getAssets().open("memory.txt");
 
             length = is.available();
             mProgress.setMax(length);//设置进度条最大值

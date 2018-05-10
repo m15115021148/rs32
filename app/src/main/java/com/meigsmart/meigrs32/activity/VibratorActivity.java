@@ -68,7 +68,7 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
             public void run() {
                 mConfigTime--;
                 if (mConfigTime == mTimes) {
-                    mHandler.sendEmptyMessage(1002);
+                    //mHandler.sendEmptyMessage(1002);
                 }
 
                 if (mConfigTime == 0) {

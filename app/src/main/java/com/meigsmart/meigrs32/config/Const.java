@@ -3,6 +3,7 @@ package com.meigsmart.meigrs32.config;
 import com.meigsmart.meigrs32.activity.AudioActivity;
 import com.meigsmart.meigrs32.activity.BatteryActivity;
 import com.meigsmart.meigrs32.activity.BatteryChargeActivity;
+import com.meigsmart.meigrs32.activity.BluetoothActivity;
 import com.meigsmart.meigrs32.activity.CpuActivity;
 import com.meigsmart.meigrs32.activity.EComPassActivity;
 import com.meigsmart.meigrs32.activity.EarPhoneActivity;
@@ -46,19 +47,30 @@ public class Const {
 
     public static Class[] pcbaList = {
             MemoryActivity.class,
+            MemoryActivity.class,
             BatteryChargeActivity.class,
             EarPhoneActivity.class,
             SpeakerActivity.class,
             ReceiverOrMicActivity.class,
             RecordActivity.class,
             Class.class,
+            BluetoothActivity.class,
             GpsActivity.class,
             VibratorActivity.class,
-            PowerConsumptionActivity.class
+            PowerConsumptionActivity.class,
+            RearCameraAutoActivity.class,
+            RearCameraAutoActivity.class,
+            LCDBrightnessActivity.class,
+            LEDActivity.class,
+            GSensorActivity.class,
+            EComPassActivity.class,
+            LSensorActivity.class,
+            GyroMeterActivity.class
     };
 
     public static Class[] runInList = {
             CpuActivity.class,
+            MemoryActivity.class,
             MemoryActivity.class,
             BatteryActivity.class,
             LCDRGBActivity.class,
