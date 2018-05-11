@@ -126,7 +126,7 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                     mScan.setVisibility(View.GONE);
                     mBtSn.setText(Html.fromHtml(getResources().getString(R.string.bluetooth_address)+"&nbsp;"+getBluetoothAddress()));
                     mAdapter.setData(bluetoothDeviceList);
-                    if (!TextUtils.isEmpty(getBluetoothAddress())){
+                    if (!TextUtils.isEmpty(getBluetoothAddress()) && "02:00:00:00:00:00".equals(getBluetoothAddress())){
                         if (bluetoothDeviceList.size()>0 ){
                             deInit(SUCCESS);
                         }else {

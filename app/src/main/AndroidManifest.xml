@@ -62,7 +62,7 @@
             android:exported="true"
             android:permission="true" />
         <service android:name=".service.AudioLoopbackService" />
-        <service android:name=".service.GpsService"/>
+        <service android:name=".service.GpsService" />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -103,7 +103,8 @@
         <activity android:name=".activity.GpsActivity" />
         <activity android:name=".activity.PowerConsumptionActivity" />
         <activity android:name=".activity.BatteryChargeActivity" />
-        <activity android:name=".activity.BluetoothActivity"></activity>
+        <activity android:name=".activity.BluetoothActivity" />
+        <activity android:name=".activity.WifiActivity"></activity>
     </application>
 
 </manifest>

@@ -53,6 +53,8 @@
     <string name="gps_current_lng">Current longitude:</string>
     <string name="gps_current_lat">Current latitude:</string>
     <string name="gps_count_num">Number of satellites:</string>
+    <string name="wifi_mac_address">Wifi MAC Address: </string>
+    <string name="wifi_list">Wifi Lists</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

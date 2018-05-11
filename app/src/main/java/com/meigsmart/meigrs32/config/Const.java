@@ -24,6 +24,7 @@ import com.meigsmart.meigrs32.activity.RecordActivity;
 import com.meigsmart.meigrs32.activity.RunInActivity;
 import com.meigsmart.meigrs32.activity.SpeakerActivity;
 import com.meigsmart.meigrs32.activity.VibratorActivity;
+import com.meigsmart.meigrs32.activity.WifiActivity;
 
 /**
  * Created by chenMeng on 2018/4/24.
@@ -53,7 +54,7 @@ public class Const {
             SpeakerActivity.class,
             ReceiverOrMicActivity.class,
             RecordActivity.class,
-            Class.class,
+            WifiActivity.class,
             BluetoothActivity.class,
             GpsActivity.class,
             VibratorActivity.class,
