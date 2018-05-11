@@ -38,6 +38,8 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
     private int mConfigTime;
     private Runnable mRun;
 
+    private boolean isPass;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_e_compass;
@@ -70,6 +72,7 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
                 if (mConfigTime == 0) {
                     mHandler.sendEmptyMessage(1002);
                 }
+                if (isStartTest)mHandler.sendEmptyMessageDelayed(1002,5000);
                 mHandler.postDelayed(this, 1000);
             }
         };
@@ -84,6 +87,7 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1001:
+                    isStartTest = true;
                     mFlag.setVisibility(View.GONE);
                     mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
                     Sensor defaultSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -111,7 +115,7 @@ public class EComPassActivity extends BaseActivity implements View.OnClickListen
         public void onSensorChanged(SensorEvent event) {
             mCompass.setVal(event.values[0]);
             if (event.values[0]!=0){
-                mHandler.sendEmptyMessageDelayed(1002,5000);
+                isPass = true;
             }
         }
 

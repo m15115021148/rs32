@@ -133,11 +133,18 @@
     <!-- Audio Function Test -->
     <!-- Earphone  critical result-->
     <integer name="earphone_default_config_standard_result">1</integer>
+    <string name="earphone_default_config_custom_path">Download/</string>
+    <bool name="earphone_default_config_is_use_custom_path">false</bool>
+    <string name="earphone_default_config_custom_file_name">music.mp3</string>
     <!-- Speaker   critical result-->
     <integer name="speaker_default_config_standard_result">1</integer>
+    <string name="speaker_default_config_custom_path">Download/</string>
+    <bool name="speaker_default_config_is_use_custom_path">false</bool>
+    <string name="speaker_default_config_custom_file_name">beep.mp3</string>
     <!-- Receiver/Mic  critical result-->
     <integer name="receiver_mic_default_config_standard_result">1</integer>
     <!-- Record   critical result-->
     <integer name="record_default_config_standard_result">1</integer>
+    <string name="record_default_config_save_file_path">Record/</string>
 
 </resources>

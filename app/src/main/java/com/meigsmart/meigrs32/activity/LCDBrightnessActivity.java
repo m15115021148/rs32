@@ -162,19 +162,13 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         mHandler.removeCallbacks(mRun);
         mHandler.removeCallbacks(this);
         mHandler.removeMessages(1001);
         mHandler.removeMessages(9999);
         pm.setBacklightBrightness(background);
         Settings.System.putInt(getApplication().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, background);
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        mHandler.removeCallbacks(this);
-        super.onPause();
     }
 
 }

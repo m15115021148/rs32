@@ -20,9 +20,9 @@
     <integer name="pcba_default_config_battery_charge">1</integer>
     <integer name="pcba_default_config_audio_earphone">1</integer>
     <integer name="pcba_default_config_audio_speaker">1</integer>
-    <integer name="pcba_default_config_audio_receive">1</integer>
+    <integer name="pcba_default_config_audio_receive">0</integer>
     <integer name="pcba_default_config_audio_record">1</integer>
-    <integer name="pcba_default_config_wifi">0</integer>
+    <integer name="pcba_default_config_wifi">1</integer>
     <integer name="pcba_default_config_bt">1</integer>
     <integer name="pcba_default_config_gps">1</integer>
     <integer name="pcba_default_config_vibrator">1</integer>

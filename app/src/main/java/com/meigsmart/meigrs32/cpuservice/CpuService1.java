@@ -49,6 +49,7 @@ public class CpuService1 extends Service {
     public void onDestroy() {
         super.onDestroy();
         this.mServiceLooper.quit();
+        stopSelf();
     }
 
     private final class ServiceHandler extends Handler {

@@ -105,8 +105,8 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
                 case 1001:
                     mFlag.setVisibility(View.GONE);
                     mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
-                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
-                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(0)));
+                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_y_angle)+"&nbsp;"+Float.toString(0)));
+                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_z_angle)+"&nbsp;"+Float.toString(0)));
                     init();
                     break;
                 case 1002:
@@ -118,8 +118,8 @@ public class GyroMeterActivity extends BaseActivity implements View.OnClickListe
                 case 2:
                     float[] f = (float[]) msg.obj;
                     mGyroList.get(0).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[0])));
-                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[1])));
-                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_x_angle)+"&nbsp;"+Float.toString(f[2])));
+                    mGyroList.get(1).setText(Html.fromHtml(getResources().getString(R.string.gyro_y_angle)+"&nbsp;"+Float.toString(f[1])));
+                    mGyroList.get(2).setText(Html.fromHtml(getResources().getString(R.string.gyro_z_angle)+"&nbsp;"+Float.toString(f[2])));
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

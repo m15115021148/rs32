@@ -114,7 +114,7 @@ public class AudioLoopbackService extends Service {
 
             int mode = mAudioManager.getMode();
             mAudioManager.setMode(AudioManager.MODE_IN_CALL);
-            //mAudioManager.setMode(AudioManager.MODE_NORMAL);
+            //mAudioManager.setMode(RecordUtil.MODE_NORMAL);
             int valume = mAudioManager.getStreamVolume(STREAM_TYPE);
             mAudioManager.setStreamVolume(STREAM_TYPE, 6, 0);
             try {

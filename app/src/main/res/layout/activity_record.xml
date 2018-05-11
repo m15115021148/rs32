@@ -13,4 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.meigsmart.meigrs32.view.VolumeView
+            android:id="@+id/volumeView"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/vumeter" />
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:onClick="onStartRecord"
+            android:text="@string/record_start"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m_left"
+            android:layout_marginRight="@dimen/m_left"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/record_tag"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
+
+
+    </LinearLayout>
+
 </LinearLayout>

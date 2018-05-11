@@ -5,10 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.session.MediaSession;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,11 +23,13 @@ import com.meigsmart.meigrs32.R;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.service.AudioLoopbackService;
+import com.meigsmart.meigrs32.util.FileUtil;
 import com.meigsmart.meigrs32.util.ToastUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 import com.meigsmart.meigrs32.view.VolumeView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -67,6 +72,12 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
     private boolean isHeadsetExist = false;
     private int mRetryCount = 0;
 
+    private boolean isCustomPath ;
+    private String mCustomPath;
+    private String mCustomFileName ;
+
+    private MediaPlayer mMediaPlayer;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_ear_phone;
@@ -79,6 +90,11 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.pcba_audio_earphone);
+
+        isCustomPath = getResources().getBoolean(R.bool.earphone_default_config_is_use_custom_path);
+        mCustomPath = getResources().getString(R.string.earphone_default_config_custom_path);
+        mCustomFileName = getResources().getString(R.string.earphone_default_config_custom_file_name);
+        LogUtil.d("isCustomPath:"+isCustomPath+" mCustomPath:"+mCustomPath);
 
         mDialog.setCallBack(this);
         mFatherName = getIntent().getStringExtra("fatherName");
@@ -203,6 +219,19 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
         return newState != 0;
     }
 
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 9999:
+                    deInit(FAILURE,msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -221,6 +250,10 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mMediaPlayer!=null){
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+        }
         unregisterReceiver(earphonePluginReceiver);
         unregisterReceiver(mReceiver);
         Intent intent = new Intent(getApplicationContext(), AudioLoopbackService.class);
@@ -336,6 +369,42 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
         mContext.finish();
     }
 
+
+    private void playVideo(){
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.reset();
+            setDataSource(isCustomPath);
+            mMediaPlayer.start();
+        } catch (Exception e) {
+            sendErrorMsgDelayed(mHandler,e.getMessage());
+        }
+    }
+
+    private void setDataSource(boolean isCustom){
+        try {
+            if (isCustom){
+                if (TextUtils.isEmpty(mCustomPath) && TextUtils.isEmpty(mCustomFileName)){
+                    sendErrorMsgDelayed(mHandler,"the custom file path is null");
+                    return;
+                }
+                File file = FileUtil.createRootDirectory(mCustomPath);
+                File file1 = FileUtil.mkDir(file);
+                File f = new File(file1.getPath(),mCustomFileName);
+
+                mMediaPlayer.setDataSource(f.getPath());
+            }else {
+                AssetFileDescriptor afd = this.getAssets().openFd("music.mp3");
+                mMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            }
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+            sendErrorMsgDelayed(mHandler,e.getMessage());
+        }
+    }
+
     @Override
     public void onResultListener(int result) {
         if (result == 0) {
@@ -348,6 +417,7 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
     }
 
     public void onPlay(View view) {
+        playVideo();
     }
 
     public void onRecord(View view) {

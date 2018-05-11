@@ -62,6 +62,7 @@
             android:exported="true"
             android:permission="true" />
         <service android:name=".service.AudioLoopbackService" />
+        <service android:name=".service.GpsService"/>
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>

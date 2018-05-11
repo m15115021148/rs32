@@ -46,6 +46,13 @@
     <string name="bluetooth_address">Bluetooth MAC Address: </string>
     <string name="bluetooth_no_device">No device was scanned</string>
     <string name="bluetooth_scan">Rescan</string>
+    <string name="speaker_tag">Please check the audio played at Speaker</string>
+    <string name="record_start">start</string>
+    <string name="record_tag">Recording is completed and will be automatically played after two seconds</string>
+    <string name="record_completed">complete</string>
+    <string name="gps_current_lng">Current longitude:</string>
+    <string name="gps_current_lat">Current latitude:</string>
+    <string name="gps_count_num">Number of satellites:</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>

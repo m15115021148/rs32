@@ -56,6 +56,11 @@ public class FileUtil {
         return file.getPath();
     }
 
+    public static String createInnerPath(Context context){
+        File file = new File(getDataFile(context));
+        return file.getPath();
+    }
+
 
     /**
      * 读取文件的大小
