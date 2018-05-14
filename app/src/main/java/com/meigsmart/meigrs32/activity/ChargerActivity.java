@@ -19,15 +19,17 @@ import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.model.BatteryVolume;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
-import org.json.JSONException;
-
 import java.io.FileReader;
 import java.io.IOException;
 
 import butterknife.BindView;
 
-public class BatteryChargeActivity extends BaseActivity implements View.OnClickListener,PromptDialog.OnPromptDialogCallBack {
-    private BatteryChargeActivity mContext;
+/**
+ * charger 充电器测试
+ * Created by chenMeng on 2018/05/14
+ */
+public class ChargerActivity extends BaseActivity implements View.OnClickListener,PromptDialog.OnPromptDialogCallBack   {
+    private ChargerActivity mContext;
     @BindView(R.id.title)
     public TextView mTitle;
     @BindView(R.id.back)
@@ -38,7 +40,11 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.battery)
     public TextView mBattery;
     @BindView(R.id.secondBattery)
-    public TextView mSecondBattery;
+    public TextView mChargingVoltage;
+    @BindView(R.id.chargingStatus)
+    public TextView mChargingStatus;
+    @BindView(R.id.chargingMethod)
+    public TextView mChargingMethod;
 
     private static final String BATTERY_ELECTRONIC = "/sys/class/power_supply/bms/current_now";//read
     private static final String BATTERY_V = "/sys/class/power_supply/bms/voltage_ocv";
@@ -53,7 +59,7 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_battery_charge;
+        return R.layout.activity_charger;
     }
 
     @Override
@@ -62,9 +68,9 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
         super.startBlockKeys = Const.isCanBackKey;
         mBack.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(this);
-        mTitle.setText(R.string.pcba_battery_charge);
+        mTitle.setText(R.string.pcba_charger);
 
-        mConfigResult = getResources().getInteger(R.integer.battery_charge_default_config_standard_result);
+        mConfigResult = getResources().getInteger(R.integer.charger_default_config_standard_result);
         mConfigTime = getResources().getInteger(R.integer.pcba_test_default_time);
         mConfigTime = mConfigTime * 60;
         LogUtil.d("mConfigResult:" + mConfigResult + " mConfigTime:" + mConfigTime);
@@ -114,10 +120,21 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
                                             "&nbsp;"+"<font color='#FF0000'>"+volume.getLevel()+"%"+"</font>"
                             ));
 
-                    mSecondBattery.setText(
+                    mChargingVoltage.setText(
                             Html.fromHtml(
-                                    getResources().getString(R.string.battery_second_voltage)+
+                                    getResources().getString(R.string.battery_charger_voltage)+
                                             "&nbsp;"+"<font color='#FF0000'>"+volume.getVoltage()+ " mv"+"</font>"
+                            ));
+                    mChargingStatus.setText(
+                            Html.fromHtml(
+                                    getResources().getString(R.string.battery_charger_status)+
+                                            "&nbsp;"+"<font color='#FF0000'>"+volume.getStatus()+"</font>"
+                            ));
+
+                    mChargingMethod.setText(
+                            Html.fromHtml(
+                                    getResources().getString(R.string.battery_charger_method)+
+                                            "&nbsp;"+"<font color='#FF0000'>"+volume.getPlugged()+"</font>"
                             ));
                     break;
                 case 9999:
@@ -244,35 +261,35 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
                 String acString = "";
                 switch (status) {
                     case BatteryManager.BATTERY_STATUS_UNKNOWN:
-                        statusString = "BATTERY_STATUS_UNKNOWN";
+                        statusString = "UNKNOWN";
                         break;
 
                     case BatteryManager.BATTERY_STATUS_CHARGING:
-                        statusString = "BATTERY_STATUS_CHARGING";
+                        statusString = "CHARGING";
                         break;
                     case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                        statusString = "BATTERY_STATUS_DISCHARGING";
+                        statusString = "DISCHARGING";
                         break;
 
                     case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-                        statusString = "BATTERY_STATUS_NOT_CHARGING";
+                        statusString = "NOT_CHARGING";
                         break;
 
                     case BatteryManager.BATTERY_STATUS_FULL:
-                        statusString = "BATTERY_STATUS_FULL";
+                        statusString = "FULL";
                         break;
                     default:
                         break;
                 }
                 switch (plugged) {
                     case BatteryManager.BATTERY_PLUGGED_AC:
-                        acString = "BATTERY_PLUGGED_AC";
+                        acString = "PLUGGED_AC";
                         break;
                     case BatteryManager.BATTERY_PLUGGED_USB:
-                        acString = "BATTERY_PLUGGED_USB";
+                        acString = "PLUGGED_USB";
                         break;
                     default:
-                        acString = "BATTERY_PLUGGED_USB";
+                        acString = "UNKNOWN";
                         break;
                 }
                 volume.setStatus(statusString);
@@ -285,5 +302,4 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
             }
         }
     };
-
 }

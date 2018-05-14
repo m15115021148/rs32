@@ -127,7 +127,7 @@ public class WifiActivity extends BaseActivity implements View.OnClickListener,P
                     break;
                 case 1002:
                     mAdapter.setData(mList);
-                    if (!TextUtils.isEmpty(getMac()) && "02:00:00:00:00:00".equals(getMac())){
+                    if (!TextUtils.isEmpty(getMac()) && !"02:00:00:00:00:00".equals(getMac())){
                         if (mList.size()>0){
                             deInit(SUCCESS);
                         }

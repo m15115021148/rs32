@@ -22,6 +22,8 @@
 
     <!--pcba list-->
     <string-array name="pcba_list">
+        <item>@string/pcba_software_version</item>
+        <item>@string/pcba_charger</item>
         <item>@string/pcba_memory_ram</item>
         <item>@string/pcba_memory_emmc</item>
         <item>@string/pcba_battery_charge</item>
@@ -42,8 +44,15 @@
         <item>@string/pcba_e_compass</item>
         <item>@string/pcba_l_sensor</item>
         <item>@string/pcba_gyro_meter</item>
+        <item>@string/pcba_keyboard</item>
+        <item>@string/pcba_sim</item>
+        <item>@string/pcba_sim_call</item>
+        <item>@string/pcba_storage_card</item>
+        <item>@string/pcba_usb_otg</item>
     </string-array>
     <integer-array name="pcba_list_config">
+        <item>@integer/pcba_default_config_software</item>
+        <item>@integer/pcba_default_config_charger</item>
         <item>@integer/pcba_default_config_memory_ram</item>
         <item>@integer/pcba_default_config_memory_emmc</item>
         <item>@integer/pcba_default_config_battery_charge</item>
@@ -64,6 +73,11 @@
         <item>@integer/pcba_default_config_e_compass</item>
         <item>@integer/pcba_default_config_l_sensor</item>
         <item>@integer/pcba_default_config_gyro_meter</item>
+        <item>@integer/pcba_default_config_keyboard</item>
+        <item>@integer/pcba_default_config_sim</item>
+        <item>@integer/pcba_default_config_sim_call</item>
+        <item>@integer/pcba_default_config_storage_card</item>
+        <item>@integer/pcba_default_config_usb_otg</item>
     </integer-array>
 
     <!--run in list-->

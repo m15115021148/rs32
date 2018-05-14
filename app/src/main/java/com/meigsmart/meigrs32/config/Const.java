@@ -4,12 +4,14 @@ import com.meigsmart.meigrs32.activity.AudioActivity;
 import com.meigsmart.meigrs32.activity.BatteryActivity;
 import com.meigsmart.meigrs32.activity.BatteryChargeActivity;
 import com.meigsmart.meigrs32.activity.BluetoothActivity;
+import com.meigsmart.meigrs32.activity.ChargerActivity;
 import com.meigsmart.meigrs32.activity.CpuActivity;
 import com.meigsmart.meigrs32.activity.EComPassActivity;
 import com.meigsmart.meigrs32.activity.EarPhoneActivity;
 import com.meigsmart.meigrs32.activity.GSensorActivity;
 import com.meigsmart.meigrs32.activity.GpsActivity;
 import com.meigsmart.meigrs32.activity.GyroMeterActivity;
+import com.meigsmart.meigrs32.activity.KeyboardActivity;
 import com.meigsmart.meigrs32.activity.LCDBrightnessActivity;
 import com.meigsmart.meigrs32.activity.LCDRGBActivity;
 import com.meigsmart.meigrs32.activity.LEDActivity;
@@ -22,7 +24,12 @@ import com.meigsmart.meigrs32.activity.RearCameraAutoActivity;
 import com.meigsmart.meigrs32.activity.ReceiverOrMicActivity;
 import com.meigsmart.meigrs32.activity.RecordActivity;
 import com.meigsmart.meigrs32.activity.RunInActivity;
+import com.meigsmart.meigrs32.activity.SIMActivity;
+import com.meigsmart.meigrs32.activity.SimCallActivity;
+import com.meigsmart.meigrs32.activity.SoftwareVersionActivity;
 import com.meigsmart.meigrs32.activity.SpeakerActivity;
+import com.meigsmart.meigrs32.activity.StorageCardActivity;
+import com.meigsmart.meigrs32.activity.UsbOtgActivity;
 import com.meigsmart.meigrs32.activity.VibratorActivity;
 import com.meigsmart.meigrs32.activity.WifiActivity;
 
@@ -47,6 +54,8 @@ public class Const {
     };
 
     public static Class[] pcbaList = {
+            SoftwareVersionActivity.class,
+            ChargerActivity.class,
             MemoryActivity.class,
             MemoryActivity.class,
             BatteryChargeActivity.class,
@@ -66,7 +75,12 @@ public class Const {
             GSensorActivity.class,
             EComPassActivity.class,
             LSensorActivity.class,
-            GyroMeterActivity.class
+            GyroMeterActivity.class,
+            KeyboardActivity.class,
+            SIMActivity.class,
+            SimCallActivity.class,
+            StorageCardActivity.class,
+            UsbOtgActivity.class
     };
 
     public static Class[] runInList = {

@@ -147,4 +147,34 @@
     <integer name="record_default_config_standard_result">1</integer>
     <string name="record_default_config_save_file_path">Record/</string>
 
+    <!--Software Test-->
+    <!-- Software critical result-->
+    <integer name="software_default_config_standard_result">1</integer>
+
+    <!--Charger Test-->
+    <!-- Charger critical result-->
+    <integer name="charger_default_config_standard_result">1</integer>
+
+    <!--keyboard Test-->
+    <!-- keyboard critical result-->
+    <integer name="keyboard_default_config_standard_result">1</integer>
+
+    <!--sim Test-->
+    <!-- sim critical result-->
+    <integer name="sim_default_config_standard_result">1</integer>
+
+    <!--Sim call Test-->
+    <!-- Sim call critical result-->
+    <integer name="sim_call_default_config_standard_result">1</integer>
+    <bool name="sim_call_default_config_is_use_custom_phone_number">false</bool>
+    <integer name="sim_call_default_config_custom_phone_number">10086</integer>
+
+    <!--Storage card Test-->
+    <!-- Storage card critical result-->
+    <integer name="storage_card_default_config_standard_result">1</integer>
+
+    <!--USB OTG Test-->
+    <!-- USB OTG  critical result-->
+    <integer name="usb_otg_default_config_standard_result">1</integer>
+
 </resources>

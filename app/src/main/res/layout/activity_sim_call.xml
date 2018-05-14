@@ -6,7 +6,7 @@
     android:background="@color/pop_txt_bg"
     android:orientation="vertical"
     android:overScrollMode="never"
-    tools:context=".activity.WifiActivity">
+    tools:context=".activity.SimCallActivity">
 
     <include
         layout="@layout/include_title"
@@ -27,48 +27,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:paddingLeft="@dimen/m_left">
 
         <TextView
-            android:id="@+id/wifiMac"
+            android:id="@+id/simState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:textColor="@color/black_dan"
             android:textSize="@dimen/fontSize" />
 
         <TextView
+            android:id="@+id/simNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/wifi_list"
+            android:layout_marginTop="20dp"
             android:textColor="@color/black_dan"
             android:textSize="@dimen/fontSize" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
-
         <TextView
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:text="@string/bluetooth_scan"
-            android:textColor="@color/black_dan"
-            android:textSize="@dimen/fontSize"
-            android:id="@+id/scan"
+            android:id="@+id/timer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize" />
 
     </LinearLayout>
-
 
 </LinearLayout>

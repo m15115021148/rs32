@@ -34,6 +34,7 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL" />
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -104,7 +105,14 @@
         <activity android:name=".activity.PowerConsumptionActivity" />
         <activity android:name=".activity.BatteryChargeActivity" />
         <activity android:name=".activity.BluetoothActivity" />
-        <activity android:name=".activity.WifiActivity"></activity>
+        <activity android:name=".activity.WifiActivity" />
+        <activity android:name=".activity.SoftwareVersionActivity" />
+        <activity android:name=".activity.ChargerActivity" />
+        <activity android:name=".activity.KeyboardActivity" />
+        <activity android:name=".activity.SIMActivity" />
+        <activity android:name=".activity.StorageCardActivity" />
+        <activity android:name=".activity.UsbOtgActivity" />
+        <activity android:name=".activity.SimCallActivity"></activity>
     </application>
 
 </manifest>

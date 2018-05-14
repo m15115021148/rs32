@@ -42,6 +42,9 @@
     <string name="battery_charge_tag">Please do not keep charging</string>
     <string name="battery_charge_is">Battery charge is:</string>
     <string name="battery_second_voltage">Second battery voltage:</string>
+    <string name="battery_charger_voltage">Charging voltage:</string>
+    <string name="battery_charger_status">Charging status:</string>
+    <string name="battery_charger_method">Charging method:</string>
     <string name="bluetooth_list">Bluetooth Lists</string>
     <string name="bluetooth_address">Bluetooth MAC Address: </string>
     <string name="bluetooth_no_device">No device was scanned</string>
@@ -55,6 +58,11 @@
     <string name="gps_count_num">Number of satellites:</string>
     <string name="wifi_mac_address">Wifi MAC Address: </string>
     <string name="wifi_list">Wifi Lists</string>
+    <string name="sim_insert_sim">Please insert sim card</string>
+    <string name="sim_state_unknown">Unknown</string>
+    <string name="sim_call_timer_call">Will automatically make calls after 5 seconds</string>
+    <string name="sim_call_tag">Countdown:</string>
+    <string name="sim_call_telphone">Phone number:</string>
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>
@@ -73,6 +81,8 @@
     <string name="function_other">Other Test</string>
 
     <!--PCBA-->
+    <string name="pcba_software_version">Software Version Test</string>
+    <string name="pcba_charger">Charger Test</string>
     <string name="pcba_memory_ram">Memory RAM Test</string>
     <string name="pcba_memory_emmc">Memory EMMC Test</string>
     <string name="pcba_battery_charge">Battery charge Test</string>
@@ -94,6 +104,11 @@
     <string name="pcba_e_compass">E-ComPass Test</string>
     <string name="pcba_l_sensor">L-Sensor Test</string>
     <string name="pcba_gyro_meter">Gyro-Meter Test</string>
+    <string name="pcba_keyboard">Keyboard Tets</string>
+    <string name="pcba_sim">SIM Test</string>
+    <string name="pcba_sim_call">SIM Call Test</string>
+    <string name="pcba_storage_card">Storage Card Test</string>
+    <string name="pcba_usb_otg">USB OTG Test</string>
 
     <!--run-in-->
     <string name="run_in_cpu">CPU Test</string>
