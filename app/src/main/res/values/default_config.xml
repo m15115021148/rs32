@@ -36,7 +36,7 @@
     <!--LCD R/G/B Test critical result-->
     <integer name="lcd_rgb_default_config_standard_result">1</integer>
     <!--LCD Brightness Test critical result-->
-    <integer name="lcd_brightness_default_config_standard_result">1</integer>
+    <integer name="lcd_brightness_default_config_standard_result">150</integer>
 
     <!--LED  Test-->
     <!--LED Test critical result-->
@@ -136,11 +136,18 @@
     <string name="earphone_default_config_custom_path">Download/</string>
     <bool name="earphone_default_config_is_use_custom_path">false</bool>
     <string name="earphone_default_config_custom_file_name">music.mp3</string>
-    <!-- Speaker   critical result-->
-    <integer name="speaker_default_config_standard_result">1</integer>
+    <!-- Speaker   critical result  0-3-->
+    <integer name="speaker_default_config_standard_result">2</integer>
+    <array name="speaker_list">
+        <item>Dogs sound</item>
+        <item>Tick sound</item>
+        <item>Bell sound</item>
+        <item>Other sound</item>
+    </array>
     <string name="speaker_default_config_custom_path">Download/</string>
     <bool name="speaker_default_config_is_use_custom_path">false</bool>
     <string name="speaker_default_config_custom_file_name">beep.mp3</string>
+
     <!-- Receiver/Mic  critical result-->
     <integer name="receiver_mic_default_config_standard_result">1</integer>
     <!-- Record   critical result-->

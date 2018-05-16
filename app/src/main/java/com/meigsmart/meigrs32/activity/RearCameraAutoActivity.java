@@ -375,6 +375,7 @@ public class RearCameraAutoActivity extends BaseActivity implements View.OnClick
                 LogUtil.d("start preview");
                 isCanOpen =  true;
                 mCamera.startPreview();
+                mDialog.setSuccess();
             } catch (Exception e) {
                 mCamera.release();
                 mCamera = null;

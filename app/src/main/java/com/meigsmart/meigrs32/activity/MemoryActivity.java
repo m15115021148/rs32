@@ -143,12 +143,13 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                     }
                     mResult.setText(msg.obj.toString());
                     break;
-                case 1004:
+                case 1004://start finish
                     mResult.setText("");
                     progressValue = 0;
                     mProgress.setProgress(0);
 
                     init(path);
+                    mDialog.setSuccess();
                     break;
                 case 1113:
                     if (isCustomPath){
@@ -167,11 +168,6 @@ public class MemoryActivity extends BaseActivity implements View.OnClickListener
                             sendErrorMsgDelayed(mHandler,"the file path is not null");
                         }
                     }
-//                    else{
-//                        mCustomFileName = "memory.txt";
-//                        path = FileUtil.createInnerPath(mContext,mCustomFileName);
-//                    }
-
                     init(firstPath);
                     break;
                 case 1111:

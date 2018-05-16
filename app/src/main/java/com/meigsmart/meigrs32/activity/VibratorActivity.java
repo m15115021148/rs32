@@ -89,6 +89,7 @@ public class VibratorActivity extends BaseActivity implements View.OnClickListen
             super.handleMessage(msg);
             switch (msg.what){
                 case 1001:
+                    mDialog.setSuccess();
                     mVibrator.vibrate(V_TIME);
                     break;
                 case 1002:

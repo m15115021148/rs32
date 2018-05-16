@@ -9,6 +9,7 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -136,6 +137,10 @@ public class ChargerActivity extends BaseActivity implements View.OnClickListene
                                     getResources().getString(R.string.battery_charger_method)+
                                             "&nbsp;"+"<font color='#FF0000'>"+volume.getPlugged()+"</font>"
                             ));
+                    if (!TextUtils.isEmpty(volume.getPlugged())
+                            && !"UNKNOWN".equals(volume.getPlugged())){
+                        mDialog.setSuccess();
+                    }
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

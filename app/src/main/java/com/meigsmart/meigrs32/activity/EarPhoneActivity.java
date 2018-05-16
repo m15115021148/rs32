@@ -290,8 +290,10 @@ public class EarPhoneActivity extends BaseActivity implements OnClickListener, P
                     String nm = earphoneIntent.getStringExtra("name");
 
                     if (st == 0) {
+                        mDialog.setSuccess(false);
                         ToastUtil.showBottomShort(getResources().getString(R.string.earphone_pulled_out));
                     } else if (st == 1) {
+                        mDialog.setSuccess();
                         ToastUtil.showBottomShort(getResources().getString(R.string.earphone_inserted));
                     }
 

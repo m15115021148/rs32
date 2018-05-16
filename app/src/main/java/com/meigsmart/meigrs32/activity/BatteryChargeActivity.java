@@ -9,6 +9,7 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -119,6 +120,9 @@ public class BatteryChargeActivity extends BaseActivity implements View.OnClickL
                                     getResources().getString(R.string.battery_second_voltage)+
                                             "&nbsp;"+"<font color='#FF0000'>"+volume.getVoltage()+ " mv"+"</font>"
                             ));
+                    if (volume.getLevel() != 0 ){
+                        mDialog.setSuccess();
+                    }
                     break;
                 case 9999:
                     deInit(FAILURE,msg.obj.toString());

@@ -32,6 +32,10 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
         isSuccess = true;
     }
 
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
+
     public void setCallBack(OnPromptDialogCallBack callBack){
         this.mCallBack = callBack;
     }

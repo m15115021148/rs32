@@ -93,6 +93,7 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
             super.handleMessage(msg);
             switch (msg.what){
                 case 1001:
+                    isStartTest = true;
                     if (MyApplication.NAME.equals(mFatherName))deInit(SUCCESS);
                     break;
                 case 9999:
@@ -146,6 +147,8 @@ public class LCDBrightnessActivity extends BaseActivity implements View.OnClickL
         }else{
             curBackground--;
         }
+
+        if (curBackground == mConfigResult)mDialog.setSuccess();
 
         if (curBackground == 255){
             isAdd = false;

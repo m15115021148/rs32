@@ -9,23 +9,33 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.meigsmart.meigrs32.R;
+import com.meigsmart.meigrs32.adapter.SpeakerListAdapter;
 import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
+import com.meigsmart.meigrs32.model.TypeModel;
 import com.meigsmart.meigrs32.util.FileUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 
-public class SpeakerActivity extends BaseActivity implements View.OnClickListener, PromptDialog.OnPromptDialogCallBack {
+public class SpeakerActivity extends BaseActivity implements View.OnClickListener,
+        PromptDialog.OnPromptDialogCallBack ,SpeakerListAdapter.OnSpeakerSound{
     private SpeakerActivity mContext;
     @BindView(R.id.title)
     public TextView mTitle;
@@ -33,16 +43,25 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
     public LinearLayout mBack;
     private String mFatherName = "";
     @BindView(R.id.layout)
-    public LinearLayout mLayout;
+    public RelativeLayout mLayout;
     @BindView(R.id.flag)
     public TextView mFlag;
+    @BindView(R.id.recycleView)
+    public RecyclerView mRecyclerView;
+    @BindArray(R.array.speaker_list)
+    public String[] mSoundList;
+    @BindView(R.id.sure)
+    public Button mSure;
 
     private AudioManager mManager;
 
+    private int mConfigResult;
     private boolean isCustomPath ;
     private String mCustomPath;
     private String mCustomFileName ;
     private MediaPlayer mediaPlayer;
+    private SpeakerListAdapter mAdapter;
+    private int currPosition = 0;
 
 
     @Override
@@ -58,6 +77,7 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
         mBack.setOnClickListener(this);
         mTitle.setText(R.string.pcba_audio_speaker);
 
+        mConfigResult = getResources().getInteger(R.integer.speaker_default_config_standard_result);
         isCustomPath = getResources().getBoolean(R.bool.speaker_default_config_is_use_custom_path);
         mCustomPath = getResources().getString(R.string.speaker_default_config_custom_path);
         mCustomFileName = getResources().getString(R.string.speaker_default_config_custom_file_name);
@@ -67,6 +87,10 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
         mFatherName = getIntent().getStringExtra("fatherName");
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName, super.mName);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new SpeakerListAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
 
         mHandler.sendEmptyMessageDelayed(1001, 2000);
     }
@@ -80,10 +104,15 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
                 case 1001:
                     mFlag.setVisibility(View.GONE);
                     mLayout.setVisibility(View.VISIBLE);
+                    initSoundList(mSoundList);
                     init(isCustomPath);
                     break;
                 case 1002:
-                    deInit(SUCCESS);
+                    if (mConfigResult == currPosition){
+                        deInit(SUCCESS);
+                    }else {
+                        deInit(FAILURE,"Wrong choice sound");
+                    }
                     break;
                 case 9999:
                     deInit(FAILURE, msg.obj.toString());
@@ -91,6 +120,18 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
             }
         }
     };
+
+    private void initSoundList(String[] str){
+        List<TypeModel> list = new ArrayList<>();
+        for (int i=0;i< str.length;i++){
+            TypeModel model = new TypeModel();
+            model.setName(str[i]);
+            model.setType(0);
+            list.add(model);
+        }
+        mAdapter.setData(list);
+        mAdapter.notifyDataSetChanged();
+    }
 
     private void init(boolean isCustom){
         mManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -188,5 +229,20 @@ public class SpeakerActivity extends BaseActivity implements View.OnClickListene
         } else if (result == 2) {
             deInit(result);
         }
+    }
+
+    @Override
+    public void onSpeakerItemListener(int pos) {
+        mSure.setVisibility(View.VISIBLE);
+        currPosition = pos;
+        for (TypeModel model : mAdapter.getData()){
+            model.setType(0);
+        }
+        mAdapter.getData().get(pos).setType(1);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void onSure(View view) {
+        mHandler.sendEmptyMessage(1002);
     }
 }

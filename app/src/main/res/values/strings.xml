@@ -50,6 +50,8 @@
     <string name="bluetooth_no_device">No device was scanned</string>
     <string name="bluetooth_scan">Rescan</string>
     <string name="speaker_tag">Please check the audio played at Speaker</string>
+    <string name="speaker_tag1">Please select the sound you hear</string>
+    <string name="speaker_sure">Sure</string>
     <string name="record_start">start</string>
     <string name="record_tag">Recording is completed and will be automatically played after two seconds</string>
     <string name="record_completed">complete</string>
