@@ -49,6 +49,8 @@
         <item>@string/pcba_sim_call</item>
         <item>@string/pcba_storage_card</item>
         <item>@string/pcba_usb_otg</item>
+        <item>@string/pcba_nfc</item>
+        <item>@string/pcba_nfc_se</item>
     </string-array>
     <integer-array name="pcba_list_config">
         <item>@integer/pcba_default_config_software</item>
@@ -78,6 +80,8 @@
         <item>@integer/pcba_default_config_sim_call</item>
         <item>@integer/pcba_default_config_storage_card</item>
         <item>@integer/pcba_default_config_usb_otg</item>
+        <item>@integer/pcba_default_config_nfc</item>
+        <item>@integer/pcba_default_config_nfc_se</item>
     </integer-array>
 
     <!--run in list-->

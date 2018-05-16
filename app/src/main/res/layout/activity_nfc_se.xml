@@ -6,7 +6,7 @@
     android:background="@color/pop_txt_bg"
     android:orientation="vertical"
     android:overScrollMode="never"
-    tools:context=".activity.StorageCardActivity">
+    tools:context=".activity.NFCSEActivity">
 
     <include
         layout="@layout/include_title"
@@ -21,23 +21,5 @@
         android:text="@string/start_tag"
         android:textColor="@color/black_dan"
         android:textSize="@dimen/fontSize" />
-
-    <LinearLayout
-        android:id="@+id/layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/m_left">
-
-        <TextView
-            android:lineSpacingExtra="10dp"
-            android:id="@+id/sdState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/black_dan"
-            android:textSize="@dimen/fontSize" />
-
-    </LinearLayout>
 
 </LinearLayout>

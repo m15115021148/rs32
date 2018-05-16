@@ -19,6 +19,16 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <TextView
+            android:text="@string/record_pull_earphone"
+            android:id="@+id/earphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black_dan"
+            android:textSize="@dimen/fontSize"
+            android:visibility="gone" />
+
         <com.meigsmart.meigrs32.view.VolumeView
             android:id="@+id/volumeView"
             android:layout_width="150dp"

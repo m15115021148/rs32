@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
 import android.nfc.Tag;
+import android.nfc.tech.IsoDep;
 import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
 import android.os.Handler;
@@ -21,6 +23,8 @@ import com.meigsmart.meigrs32.config.Const;
 import com.meigsmart.meigrs32.log.LogUtil;
 import com.meigsmart.meigrs32.view.PromptDialog;
 
+import java.lang.reflect.Method;
+
 import butterknife.BindView;
 
 public class NFCActivity extends BaseActivity implements View.OnClickListener ,PromptDialog.OnPromptDialogCallBack{
@@ -32,10 +36,17 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
     private String mFatherName = "";
     private NfcAdapter mDefaultAdapter;
     private PendingIntent pendingIntent;
+    @BindView(R.id.flag)
+    public TextView mFlag;
+    @BindView(R.id.layout)
+    public LinearLayout mLayout;
 
     private int mConfigResult;
     private int mConfigTime;
     private Runnable mRun;
+
+    private static IntentFilter[] NFC_FILTERS;
+    private static String[][] NFC_TECHLISTS;
 
     private boolean isPass;
 
@@ -62,20 +73,16 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
         super.mName = getIntent().getStringExtra("name");
         addData(mFatherName,super.mName);
 
-        NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
-        mDefaultAdapter = manager.getDefaultAdapter();
-        pendingIntent = PendingIntent.getActivity(
-                this,
-                0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-                0);
+        mHandler.sendEmptyMessageDelayed(1000,2000);
+
+
 
         mRun = new Runnable() {
             @Override
             public void run() {
                 mConfigTime--;
                 if (mConfigTime == 0) {
-                    mHandler.sendEmptyMessage(1001);
+//                    mHandler.sendEmptyMessage(1001);
                 }
                 mHandler.postDelayed(this, 1000);
             }
@@ -90,6 +97,40 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
+                case 1000:
+                    mFlag.setVisibility(View.GONE);
+                    mLayout.setVisibility(View.VISIBLE);
+                    isStartTest = true;
+
+                    NfcManager manager = (NfcManager) getSystemService(Context.NFC_SERVICE);
+                    mDefaultAdapter = manager.getDefaultAdapter();
+                    String[][] strings = new String[1][];
+                    //最常见的卡片类型就是IsoDep
+                    strings[0] = new String[] { IsoDep.class.getName() };
+                    NFC_TECHLISTS = strings;
+                    try {
+                        NFC_FILTERS =
+                                new IntentFilter[] { new IntentFilter("android.nfc.action.TECH_DISCOVERED", "*/*") };
+                    } catch (IntentFilter.MalformedMimeTypeException e) {
+                        e.printStackTrace();
+                    }
+
+                    pendingIntent = PendingIntent.getActivity(
+                            mContext,
+                            0,
+                            new Intent(mContext, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                            0);
+
+                    if (mDefaultAdapter!=null){
+                        mDefaultAdapter.enableForegroundDispatch(mContext,pendingIntent, null, null);
+                    }else{
+                        sendErrorMsgDelayed(mHandler,"mDefaultAdapter is null");
+                    }
+
+
+//                    mDefaultAdapter.getNfcFCardEmulationService()
+
+                    break;
                 case 1001:
                     if (isPass){
                         deInit(SUCCESS);
@@ -107,20 +148,14 @@ public class NFCActivity extends BaseActivity implements View.OnClickListener ,P
         }
     };
 
+    private void intSE(){
+        
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacks(mRun);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mDefaultAdapter!=null){
-            mDefaultAdapter.enableForegroundDispatch(this,pendingIntent,null,null);//打开前台发布系统，使页面优于其它nfc处理
-        }else{
-            sendErrorMsgDelayed(mHandler,"mDefaultAdapter is null");
-        }
     }
 
     @Override

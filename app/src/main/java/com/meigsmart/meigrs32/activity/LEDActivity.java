@@ -34,12 +34,11 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.flag)
     public TextView mFlag;
 
-    private static String green =  "/sys/class/leds/green/brightness";//"/sys/devices/soc.0/gpio-leds.72/leds/green/brightness";//
-    private static String red =  "/sys/class/leds/red/brightness";//"/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0045/leds/red/brightness";//
-    private static String blue =  "/sys/class/leds/blue/brightness";//"/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0045/leds/red/brightness";//
-    final byte[] ON = { '1','2','7' };
+    private static String BRIGHTNESS_GREEN =  "/sys/class/leds/green/brightness";//"/sys/devices/soc.0/gpio-leds.72/leds/green/brightness";//
+    private static String BRIGHTNESS_RED =  "/sys/class/leds/red/brightness";//"/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0045/leds/red/brightness";//
+    private static String BRIGHTNESS_BLUE =  "/sys/class/leds/blue/brightness";//"/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0045/leds/red/brightness";//
+    final byte[] ON = { '2','5','5' };
     final byte[] OFF = { '0' };
-    private String[] colors = {red,green,blue,green};
     private String[] colorTitle = {"RED","GREEN","BLUE","GREEN"};
     private int TIME_VALUES = 2000;
     private int currPosition = 0;
@@ -119,21 +118,6 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    void enableDevice(String fileNode, boolean enable) {
-        try {
-            byte[] ledData = enable ? ON : OFF;
-            FileOutputStream fileOutputStream = new FileOutputStream(fileNode);
-            fileOutputStream.write(ledData);
-            fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            LogUtil.e(e.getMessage());
-            sendErrorMsg(mHandler,e.getMessage());
-        } catch (IOException e) {
-            LogUtil.e(e.getMessage());
-            sendErrorMsg(mHandler,e.getMessage());
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -177,13 +161,47 @@ public class LEDActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void run() {
         mFlag.setText(R.string.led_flag);
-        enableDevice(colors[currPosition],false);
-        enableDevice(colors[currPosition],true);
+        setLedColors(currPosition);
         mLeds.setText(colorTitle[currPosition]);
         currPosition++;
-        if (currPosition == 3){
+        if (currPosition == 4){
             currPosition = 0;
         }
         mHandler.postDelayed(this,TIME_VALUES);
+    }
+
+    private void setLedColors(int color) {
+        boolean red = false;
+        boolean green = false;
+        boolean blue = false;
+        switch (color) {
+            case 0:
+                red = true;
+                break;
+            case 1:
+                green = true;
+                break;
+            case 2:
+                blue = true;
+                break;
+            case 3:
+                green = true;
+                break;
+            default:
+                break;
+        }
+        try {
+            FileOutputStream fRed = new FileOutputStream(BRIGHTNESS_RED);
+            fRed.write(red ? ON : OFF);
+            fRed.close();
+            FileOutputStream fGreen = new FileOutputStream(BRIGHTNESS_GREEN);
+            fGreen.write(green ? ON : OFF);
+            fGreen.close();
+            FileOutputStream fBlue = new FileOutputStream(BRIGHTNESS_BLUE);
+            fBlue.write(blue ? ON : OFF);
+            fBlue.close();
+        } catch (Exception e) {
+            sendErrorMsg(mHandler,e.getMessage());
+        }
     }
 }

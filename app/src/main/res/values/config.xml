@@ -42,6 +42,8 @@
     <integer name="pcba_default_config_sim_call">1</integer>
     <integer name="pcba_default_config_storage_card">1</integer>
     <integer name="pcba_default_config_usb_otg">0</integer>
+    <integer name="pcba_default_config_nfc">1</integer>
+    <integer name="pcba_default_config_nfc_se">0</integer>
 
     <!--run-in default config -->
     <integer name="run_in_default_config_cpu">1</integer>

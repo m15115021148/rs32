@@ -18,6 +18,7 @@ import com.meigsmart.meigrs32.activity.LEDActivity;
 import com.meigsmart.meigrs32.activity.LSensorActivity;
 import com.meigsmart.meigrs32.activity.MemoryActivity;
 import com.meigsmart.meigrs32.activity.NFCActivity;
+import com.meigsmart.meigrs32.activity.NFCSEActivity;
 import com.meigsmart.meigrs32.activity.PCBAActivity;
 import com.meigsmart.meigrs32.activity.PowerConsumptionActivity;
 import com.meigsmart.meigrs32.activity.RearCameraAutoActivity;
@@ -80,7 +81,9 @@ public class Const {
             SIMActivity.class,
             SimCallActivity.class,
             StorageCardActivity.class,
-            UsbOtgActivity.class
+            UsbOtgActivity.class,
+            NFCActivity.class,
+            NFCSEActivity.class
     };
 
     public static Class[] runInList = {

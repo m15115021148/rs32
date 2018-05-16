@@ -27,7 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/m_left">
+        android:paddingLeft="@dimen/m_left"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/simState"
