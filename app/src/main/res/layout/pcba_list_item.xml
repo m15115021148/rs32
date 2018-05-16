@@ -10,6 +10,8 @@
         android:background="@color/white">
 
         <CheckBox
+            android:focusable="false"
+            android:enabled="false"
             android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
