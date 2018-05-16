@@ -26,6 +26,11 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
     private TextView mFail;
     private TextView mPass;
     private OnPromptDialogCallBack mCallBack;
+    private boolean isSuccess;
+
+    public void setSuccess() {
+        isSuccess = true;
+    }
 
     public void setCallBack(OnPromptDialogCallBack callBack){
         this.mCallBack = callBack;
@@ -73,6 +78,11 @@ public class PromptDialog extends Dialog implements View.OnClickListener{
         mUnTest.setOnClickListener(this);
         mFail.setOnClickListener(this);
         mPass.setOnClickListener(this);
+        if (isSuccess){
+            mPass.setVisibility(View.VISIBLE);
+        }else {
+            mPass.setVisibility(View.GONE);
+        }
 
     }
 

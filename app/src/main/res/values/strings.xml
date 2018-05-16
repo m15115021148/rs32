@@ -68,10 +68,10 @@
 
     <!--prompt dialog -->
     <string name="prompt_dialog_title">Prompt</string>
-    <string name="prompt_dialog_result">Please choose test result:</string>
+    <string name="prompt_dialog_result">Please choose test result</string>
     <string name="prompt_dialog_untest">SET UNTEST</string>
-    <string name="prompt_dialog_fail">FAIL</string>
-    <string name="prompt_dialog_pass">PASS</string>
+    <string name="prompt_dialog_fail">FAILURE</string>
+    <string name="prompt_dialog_pass">SUCCESS</string>
 
     <!--function -->
     <string name="function_pcba">PCBA(SMT Function Test)</string>

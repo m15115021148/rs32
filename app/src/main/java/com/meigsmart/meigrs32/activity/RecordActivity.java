@@ -132,7 +132,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                         int db = 0;// 分贝
                         if (ratio > 1)
                             db = (int) (20 * Math.log10(ratio));
-                        LogUtil.d("db:"+db);
+                        if (db>=mConfigResult)mDialog.setSuccess();
                         mVolumeView.setVolume(ratio);
                     }
                     break;

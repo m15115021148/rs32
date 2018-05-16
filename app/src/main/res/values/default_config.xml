@@ -144,7 +144,7 @@
     <!-- Receiver/Mic  critical result-->
     <integer name="receiver_mic_default_config_standard_result">1</integer>
     <!-- Record   critical result-->
-    <integer name="record_default_config_standard_result">1</integer>
+    <integer name="record_default_config_standard_result">50</integer>
     <string name="record_default_config_save_file_path">Record/</string>
 
     <!--Software Test-->
